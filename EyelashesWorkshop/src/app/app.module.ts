@@ -15,7 +15,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
-import { StaffTrnsactionComponent } from './staffs/staff-trnsaction/staff-trnsaction.component';
+import { StaffTransactionComponent } from './staffs/staff-transaction/staff-transaction.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,7 @@ import { StaffTrnsactionComponent } from './staffs/staff-trnsaction/staff-trnsac
     LoginComponent,
     ProfileComponent,
     RegisterComponent,
-    StaffTrnsactionComponent
+    StaffTransactionComponent
   ],
   imports: [
     BrowserModule,

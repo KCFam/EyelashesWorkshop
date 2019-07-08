@@ -8,6 +8,12 @@
             visibility: hidden;
         }
     }
+
+}
+.nav_small_screen {
+    @media screen and (min-width: $large_screen) {
+        visibility: hidden;
+    }
 }
 
 

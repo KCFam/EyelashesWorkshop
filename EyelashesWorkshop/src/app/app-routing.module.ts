@@ -11,6 +11,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
+import { StaffTransactionComponent } from './staffs/staff-transaction/staff-transaction.component';
 
 const routes: Routes = [
 
@@ -19,7 +20,9 @@ const routes: Routes = [
     path: '', 
     component: SiteLayoutComponent,
     children: [
+      { path: '', component: StaffTransactionComponent, pathMatch: 'full'},
       { path: '', component: HomeComponent, pathMatch: 'full'},
+      
       { path: 'about', component: AboutComponent },
       { path: 'test/:id', component: AboutComponent }
     ]
