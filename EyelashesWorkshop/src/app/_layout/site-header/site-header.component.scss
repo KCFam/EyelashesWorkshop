@@ -4,15 +4,13 @@
 
 .nav_large_screen {
     @media screen and (max-width: $large_screen) {
-        .navbar {
-            visibility: hidden;
-        }
+        display: none;
     }
 
 }
 .nav_small_screen {
     @media screen and (min-width: $large_screen) {
-        visibility: hidden;
+        display: none;
     }
 }
 
@@ -28,5 +26,5 @@
     top: 10px;
 }
 .dropdown-toggle::after {
-    visibility: hidden;
+    display: none;
 }
