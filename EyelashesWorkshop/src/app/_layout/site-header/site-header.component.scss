@@ -1,0 +1,26 @@
+@import "../../../assets/scss/screen_size.scss";
+@import "../../../assets/scss/pattern_color.scss";
+@import "../../../assets/scss/circular-button.scss";
+
+.nav_large_screen {
+    @media screen and (max-width: $large_screen) {
+        .navbar {
+            visibility: hidden;
+        }
+    }
+}
+
+
+// .nav_small_screen {
+//     @media screen and (min-width: $large_screen) {
+//     }
+// }
+
+.nav_menu_button {
+    position: fixed;
+    right: 10px;
+    top: 10px;
+}
+.dropdown-toggle::after {
+    visibility: hidden;
+}
