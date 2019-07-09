@@ -4,23 +4,23 @@
   </h5>
   <form>
     <div class="form-row mb-3 pb-3 border-bottom">
-      <!-- Search Name -->
-      <div class="input-group mb-2 col-md-6 SearchNameGroup">
-        <input type="text" class="form-control" id="SearchName" placeholder="Recipient's username" aria-label="Recipient's username"
-          aria-describedby="SearchNameHelp">
+      <!-- Search Staff -->
+      <div class="input-group mb-2 col-md-6 SearchStaffGroup">
+        <input type="text" class="form-control" id="SearchStaff" placeholder="Recipient's username" aria-label="Recipient's username"
+          aria-describedby="SearchStaffHelp">
         <div class="input-group-append">
-          <button class="btn btn-outline-secondary border-0" type="button" id="SearchNameHelp">
+          <button class="btn btn-outline-secondary border-0" type="button" id="SearchStaffHelp">
             <i class="material-icons">search</i>
             <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
           </button>
         </div>
       </div>
 
-      <!-- Search Result -->
-      <div class=" col-md-6 SearchNameResult">
+      <!-- Search Staff Result -->
+      <div class=" col-md-6 SearchStaffResult">
         <div class="row">
           <div class="col-lg-6">
-              <div class="card NameCard">
+              <div class="card StaffCard">
                   <div class="card-body">
                           <label class="col col-form-label">
                               <i class="material-icons">face</i>
@@ -34,7 +34,7 @@
                 </div>
           </div>
           <div class="col-lg-6">
-              <div class="card NameCard">
+              <div class="card StaffCard">
                   <div class="card-body">
                       <label class="col col-form-label">
                           <i class="material-icons">face</i>
@@ -48,7 +48,7 @@
                 </div>
           </div>
           <div class="col-lg-6">
-              <div class="card NameCard">
+              <div class="card StaffCard">
                   <div class="card-body">
                       <label class="col col-form-label">
                           <i class="material-icons">face</i>
@@ -63,20 +63,125 @@
           </div>
         </div>
       </div>
-<!--          -->
     </div>
+    <!-- Item Add -->
+    <div class="form-row border-bottom">
+        <!-- Selection Menu -->
+      <div class="form-group col-3">
+          <select class="form-control bg-dark text-white" id="formLashVolume">
+              <option value="" selected disabled hidden>Volume</option>
+              <option value="">1</option>
+              <option value="">2</option>
+              <option value="">3</option>
+              <option value="">4</option>
+              <option value="">5</option>
+            </select>
+      </div>
+      <div class="form-group col-3">
+          <select class="form-control bg-dark text-white" id="formLashLength">
+              <option value="" selected disabled hidden>Length</option>
+              <option value="">1</option>
+              <option value="">2</option>
+              <option value="">3</option>
+              <option value="">4</option>
+              <option value="">5</option>
+            </select>
+      </div>
+      <div class="form-group col-3">
+          <select class="form-control bg-dark text-white" id="formLashCurl">
+              <option value="" selected disabled hidden>Curl</option>
+              <option value="">1</option>
+              <option value="">2</option>
+              <option value="">3</option>
+              <option value="">4</option>
+              <option value="">5</option>
+            </select>
+      </div>
+      <div class="form-group col-3">
+          <select class="form-control bg-dark text-white" id="formLashHair">
+              <option value="" selected disabled hidden>Width</option>
+              <option value="">1</option>
+              <option value="">2</option>
+              <option value="">3</option>
+              <option value="">4</option>
+              <option value="">5</option>
+            </select>
+      </div>
+      <!-- Selection Menu -->
+          <div class="input-group col-6 formQuantity">
+              <div class="input-group-prepend">
+                <span class="input-group-text bg-dark text-white">Quantity</span>
+              </div>
+              <input type="text" aria-label="Quantity" class="form-control">
+            </div>
+            <div class="input-group col-6 formPrice">
+                <input type="text" class="form-control" aria-label="VND" readonly>
+                <div class="input-group-append">
+                  <span class="input-group-text bg-dark text-white">VND</span>
+                </div>
+              </div>
+      <!-- Item Added Table -->
+      <div class="input-group pt-3 col-12 formItemsTable">
+          <table class="table table-striped">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Type</th>
+                  <th class="text_right" scope="col">Quantity</th>
+                  <th class="text_right" scope="col">Price</th>
+                  <th class="text_right" scope="col">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Mark</td>
+                  <td class="text_right">Otto</td>
+                  <td class="text_right">@mdo</td>
+                  <td class="text_right">@mdo</td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Jacob</td>
+                  <td class="text_right">Thornton</td>
+                  <td class="text_right">@fat</td>
+                  <td class="text_right">@mdo</td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>Larry</td>
+                  <td class="text_right">the Bird</td>
+                  <td class="text_right">@twitter</td>
+                  <td class="text_right">@mdo</td>
+                </tr>
+              </tbody>
+              <tfoot class="bg-dark text-white">
+                  <tr>
+                    <td scope="col">Total</td>
+                    <td scope="col"></td>
+                    <td class="text_right" scope="col">Quantity</td>
+                    <td class="text_right" scope="col"></td>
+                    <td class="text_right" scope="col">Total</td>
+                  </tr>
+                </tfoot>
+            </table>  
+      </div>
+    </div>
+    <!-- Signature and Action buttons-->
     <div class="form-row">
-      <div class="form-group col-md-6">
-        <input class="form-control" type="text" id="SearchName" aria-describedby="SearchNameHelp"
-          placeholder="Search name">
-        <button class="SearchNameButton" type="button" class="btn">
-          <i class="material-icons">add_circle_outline</i>
-        </button>
-        <small id="SearchNameHelp" class="form-text text-muted">Search Name.</small>
-      </div>
-      <div class="form-group col-md-6"><input type="text" class="form-control" placeholder="First name">
-
-      </div>
+        <!-- Signature -->
+        <div class="col-md-6 border border-dark mt-3 mb-3">
+            <app-signature-pad></app-signature-pad>
+        </div>
+        <!-- Action Buttons -->
+        <div class="col-md-6">
+          <div class="col-md3 offset-md-3 align-self-end justify-content-end">
+              <button type="button" class="btn btn-outline-dark">Clear</button>
+            <button type="button" class="btn btn-dark">Save</button>
+          </div>
+            
+        </div>
     </div>
+    
   </form>
-</div> -->
+</div>

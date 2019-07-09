@@ -1,0 +1,5 @@
+<div class="SignaturePad">
+    <div class="SignaturePadCaption">Signature</div>
+    <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete()"></signature-pad>    
+    <span class="btn btn-dark badge badge-pill badge-dark" (click)="drawClear()">Clear</span>
+  </div>

@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
+import { SignaturePadModule } from 'angular2-signaturepad';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppHeaderComponent } from './_layout/app-header/app-header.component';
@@ -16,6 +18,7 @@ import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 import { StaffTransactionComponent } from './staffs/staff-transaction/staff-transaction.component';
+import { SignaturePadComponent } from './Utilities/signature-pad/signature-pad.component';
 
 @NgModule({
   declarations: [
@@ -31,12 +34,14 @@ import { StaffTransactionComponent } from './staffs/staff-transaction/staff-tran
     LoginComponent,
     ProfileComponent,
     RegisterComponent,
-    StaffTransactionComponent
+    StaffTransactionComponent,
+    SignaturePadComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    SignaturePadModule
   ],
   providers: [],
   bootstrap: [AppComponent]

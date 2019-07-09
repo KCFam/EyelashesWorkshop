@@ -3,3 +3,6 @@ $dark_text_color: #f7f7f7;
 
 .nav_menu_color { background-color: $dark_color; }
 .nav_menu_text_color { color: $dark_text_color; }
+
+.dark_color { background-color: $dark_color !important; }
+.dark_text_color { color: $dark_text_color !important; }

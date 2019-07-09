@@ -1,13 +1,16 @@
 @import "../../../assets/scss/pattern_color.scss";
 
 .input-group-append {
-    display: -webkit-box;
+    display: -webkit-box !important;
 }
 .input-group-append:hove {
     color: transparent;;
 }
+.text_right {
+    text-align: right;
+}
 
-.SearchNameGroup {
+.SearchStaffGroup {
     i {
         font-size: 48px;
         position: absolute;
@@ -16,11 +19,11 @@
     }
 }
 
-.NameCard:hover {
-        background-color: $dark_color;
-        color: $dark_text_color;
-    }
+.StaffCard:hover {
+    background-color: $dark_color;
+    color: $dark_text_color;
+}
     
-    .NameCard .card-body {
-        padding: 0.5rem;
-    }
+.StaffCard .card-body {
+    padding: 0.5rem;
+}
