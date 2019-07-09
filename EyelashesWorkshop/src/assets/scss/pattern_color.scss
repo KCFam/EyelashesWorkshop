@@ -1,2 +1,5 @@
-.nav_menu_color { background-color: #292b2c; }
-.nav_menu_text_color { color: #f7f7f7; }
+$dark_color: #292b2c;
+$dark_text_color: #f7f7f7;
+
+.nav_menu_color { background-color: $dark_color; }
+.nav_menu_text_color { color: $dark_text_color; }

@@ -1,6 +1,26 @@
-#SearchName {
-    width: 80%;
+@import "../../../assets/scss/pattern_color.scss";
+
+.input-group-append {
+    display: -webkit-box;
 }
-.SearchNameButton {
-    float:right;
+.input-group-append:hove {
+    color: transparent;;
 }
+
+.SearchNameGroup {
+    i {
+        font-size: 48px;
+        position: absolute;
+        left: -2px;
+        top: -5px;
+    }
+}
+
+.NameCard:hover {
+        background-color: $dark_color;
+        color: $dark_text_color;
+    }
+    
+    .NameCard .card-body {
+        padding: 0.5rem;
+    }
