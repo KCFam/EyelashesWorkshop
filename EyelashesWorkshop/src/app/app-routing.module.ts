@@ -23,7 +23,7 @@ const routes: Routes = [
     path: '', 
     component: SiteLayoutComponent,
     children: [
-      { path: '', component: TransactionDashboardComponent, pathMatch: 'full'},
+      { path: '', component: StaffEditComponent, pathMatch: 'full'},
       { path: '', component: HomeComponent, pathMatch: 'full'},
       
       { path: 'about', component: AboutComponent },
