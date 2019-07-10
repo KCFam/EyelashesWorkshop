@@ -108,13 +108,16 @@
             </select>
       </div>
       <!-- Selection Menu -->
-          <div class="input-group col-6 formQuantity">
+          <div class="input-group col-5 formQuantity">
               <div class="input-group-prepend">
                 <span class="input-group-text bg-dark text-white">Quantity</span>
               </div>
               <input type="text" aria-label="Quantity" class="form-control">
             </div>
-            <div class="input-group col-6 formPrice">
+            <div class="input-group col-2 formQuantity">
+              <button type="button" class="btn btn-success">Add</button>
+            </div>
+            <div class="input-group col-5 formPrice">
                 <input type="text" class="form-control" aria-label="VND" readonly>
                 <div class="input-group-append">
                   <span class="input-group-text bg-dark text-white">VND</span>
@@ -170,16 +173,13 @@
     <!-- Signature and Action buttons-->
     <div class="form-row">
         <!-- Signature -->
-        <div class="col-md-6 border border-dark mt-3 mb-3">
+        <div class="col-md-6 border border-dark mt-3" id="SignPad">
             <app-signature-pad></app-signature-pad>
         </div>
         <!-- Action Buttons -->
-        <div class="col-md-6">
-          <div class="col-md3 offset-md-3 align-self-end justify-content-end">
-              <button type="button" class="btn btn-outline-dark">Clear</button>
-            <button type="button" class="btn btn-dark">Save</button>
-          </div>
-            
+        <div class="col-md-6 pt-3 text-right">
+              <button type="button" class="btn btn-outline-success pull-right mr-1">Clear</button>
+              <button type="button" class="btn btn-success pull-right ml-1">save</button>
         </div>
     </div>
     

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { SignaturePad } from 'angular2-signaturepad/signature-pad';
 
 @Component({
@@ -7,11 +7,12 @@ import { SignaturePad } from 'angular2-signaturepad/signature-pad';
   styleUrls: ['./signature-pad.component.scss']
 })
 export class SignaturePadComponent implements OnInit {
+  @ViewChild('signpad') viewSignPad: ElementRef;
 
   @ViewChild(SignaturePad) signaturePad: SignaturePad;
   private signaturePadOptions: Object = {
     'minWidth': 5,
-    'canvasWidth': 500,
+    'canvasWidth': 375,
     'canvasHeight': 300
   }
   constructor() { }
@@ -22,6 +23,7 @@ export class SignaturePadComponent implements OnInit {
   ngAfterViewInit() {
     // this.signaturePad is now available
     this.signaturePad.set('minWidth',5);
+    this.signaturePad.set('canvasWidth',document.getElementById("SignPad").clientWidth);
     this.signaturePad.clear();
   }
 
