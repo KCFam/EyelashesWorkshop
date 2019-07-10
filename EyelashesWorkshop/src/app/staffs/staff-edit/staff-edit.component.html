@@ -1,3 +1,44 @@
-<p>
-  staff-edit works!
-</p>
+<div class="container">
+  <h5 class="pb-2 mb-2 font-italic border-bottom">
+    From the Firehose
+  </h5>
+  <form>
+    <div class="form-group row">
+      <!-- Staff Phone -->
+      <div class="input-group col-md-6 formStaffPhone pb-2">
+        <label for="formStaffPhone" class="col-sm-2 col-form-label">Phone</label>
+        <div class="col-sm-10">
+          <input type="tel" class="form-control is-valid" id="formStaffPhone" placeholder="Phone">
+          <div class="valid-feedback">Looks good!</div>
+        </div>
+      </div>
+      <!-- Staff Name -->
+      <div class="input-group col-md-6 formStaffName pb-2">
+        <label for="formStaffName" class="col-sm-2 col-form-label">Name</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control is-invalid" id="formStaffName" placeholder="Name">
+          <div class="invalid-feedback">Cannot empty!</div>
+        </div>
+      </div>
+      <!-- Staff Address -->
+      <div class="input-group col-md-6 formStaffAddress pb-2">
+        <label for="formStaffAddress" class="col-sm-2 col-form-label">Address</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="formStaffAddress" placeholder="Address">
+        </div>
+      </div>
+      <!-- Staff Notes -->
+      <div class="input-group col-md-6 formStaffNote pb-2">
+        <label for="formStaffNote" class="col-sm-2 col-form-label">Note</label>
+        <div class="col-sm-10">
+          <textarea type="text" class="form-control" id="formStaffNote"></textarea>
+        </div>
+      </div>
+      <!-- Action Buttons -->
+      <div class="col-md-12 pt-3 text-right">
+        <button type="button" class="btn btn-outline-success pull-right mr-1">Clear</button>
+        <button type="button" class="btn btn-success pull-right ml-1">save</button>
+      </div>
+    </div>
+  </form>
+</div>
