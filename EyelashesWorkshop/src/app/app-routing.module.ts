@@ -14,6 +14,7 @@ import { ProfileComponent } from './profile/profile.component';
 
 import { StaffTransactionComponent } from './staffs/staff-transaction/staff-transaction.component';
 import { StaffEditComponent } from './staffs/staff-edit/staff-edit.component';
+import { TransactionDashboardComponent } from './dashboards/transaction-dashboard/transaction-dashboard.component';
 
 const routes: Routes = [
 
@@ -22,7 +23,7 @@ const routes: Routes = [
     path: '', 
     component: SiteLayoutComponent,
     children: [
-      { path: '', component: StaffEditComponent, pathMatch: 'full'},
+      { path: '', component: TransactionDashboardComponent, pathMatch: 'full'},
       { path: '', component: HomeComponent, pathMatch: 'full'},
       
       { path: 'about', component: AboutComponent },
