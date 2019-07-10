@@ -19,6 +19,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 import { StaffTransactionComponent } from './staffs/staff-transaction/staff-transaction.component';
 import { SignaturePadComponent } from './Utilities/signature-pad/signature-pad.component';
+import { StaffEditComponent } from './staffs/staff-edit/staff-edit.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { SignaturePadComponent } from './Utilities/signature-pad/signature-pad.c
     ProfileComponent,
     RegisterComponent,
     StaffTransactionComponent,
-    SignaturePadComponent
+    SignaturePadComponent,
+    StaffEditComponent
   ],
   imports: [
     BrowserModule,
