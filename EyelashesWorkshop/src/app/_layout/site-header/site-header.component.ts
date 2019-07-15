@@ -9,9 +9,8 @@ import { AppService } from '../../app.service';
 })
 export class SiteHeaderComponent implements OnInit {
 
-  constructor( private appService: AppService) { }
+  constructor( public appService: AppService) { }
 
   ngOnInit() {
   }
-
 }

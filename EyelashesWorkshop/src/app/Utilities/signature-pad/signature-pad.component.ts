@@ -7,10 +7,10 @@ import { SignaturePad } from 'angular2-signaturepad/signature-pad';
   styleUrls: ['./signature-pad.component.scss']
 })
 export class SignaturePadComponent implements OnInit {
-  @ViewChild('signpad') viewSignPad: ElementRef;
+  @ViewChild('signpad', { static: false }) viewSignPad: ElementRef;
 
-  @ViewChild(SignaturePad) signaturePad: SignaturePad;
-  private signaturePadOptions: Object = {
+  @ViewChild(SignaturePad, { static: true }) signaturePad: SignaturePad;
+  public signaturePadOptions: Object = {
     'minWidth': 5,
     'canvasWidth': 375,
     'canvasHeight': 300

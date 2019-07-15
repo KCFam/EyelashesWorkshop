@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { StaffModel, StaffService } from '../staff.service';
-import { stringify } from '@angular/core/src/util';
 
 @Component({
   selector: 'app-staff-edit',
@@ -9,7 +8,8 @@ import { stringify } from '@angular/core/src/util';
   styleUrls: ['./staff-edit.component.scss']
 })
 export class StaffEditComponent implements OnInit {
-  staff: StaffModel;
+  staff = new StaffModel();
+  staffs;
 
   validationClassPhone: string = "form-control";
   validationClassName: string = "form-control";
@@ -17,14 +17,15 @@ export class StaffEditComponent implements OnInit {
   validationMessagePhone: string = "";
   validationMessageName: string = "";
 
-  constructor() { 
-    this.staff = new StaffModel();
+  constructor(private staffService: StaffService) { 
   }
 
   ngOnInit() {
+    
   }
 
   onSubmitForm() {
+    console.log(this.staffs);
     var isSuccess = true;
 
     // Validates Phone number

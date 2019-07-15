@@ -2,7 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { SignaturePadModule } from 'angular2-signaturepad';
+import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,6 +24,12 @@ import { StaffTransactionComponent } from './staffs/staff-transaction/staff-tran
 import { SignaturePadComponent } from './Utilities/signature-pad/signature-pad.component';
 import { StaffEditComponent } from './staffs/staff-edit/staff-edit.component';
 import { TransactionDashboardComponent } from './dashboards/transaction-dashboard/transaction-dashboard.component';
+import { AngularFirestore } from '@angular/fire/firestore';
+
+// const firebase = require("firebase");
+// // Required for side-effects
+// require("firebase/firestore");
+// var firebaseDB = firebase.firestore();
 
 @NgModule({
   declarations: [
@@ -45,9 +54,13 @@ import { TransactionDashboardComponent } from './dashboards/transaction-dashboar
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    SignaturePadModule
+    SignaturePadModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule
   ],
-  providers: [],
+  providers: [AngularFirestore],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
