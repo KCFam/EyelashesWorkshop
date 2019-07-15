@@ -26,8 +26,10 @@ const routes: Routes = [
       { path: '', component: StaffEditComponent, pathMatch: 'full'},
       { path: '', component: HomeComponent, pathMatch: 'full'},
       
-      { path: 'about', component: AboutComponent },
-      { path: 'test/:id', component: AboutComponent }
+      { path: 'AddStaffTransaction', component: StaffTransactionComponent },
+      { path: 'TransactionDashboard', component: TransactionDashboardComponent },
+      { path: 'AddStaff', component: StaffEditComponent },
+      { path: 'EditStaff/:id', component: StaffEditComponent }
     ]
   },
 
