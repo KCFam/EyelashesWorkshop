@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { StaffModel, StaffService } from '../staff.service';
 
@@ -9,7 +10,6 @@ import { StaffModel, StaffService } from '../staff.service';
 })
 export class StaffEditComponent implements OnInit {
   staff = new StaffModel();
-  staffs;
 
   validationClassPhone: string = "form-control";
   validationClassName: string = "form-control";
@@ -17,7 +17,7 @@ export class StaffEditComponent implements OnInit {
   validationMessagePhone: string = "";
   validationMessageName: string = "";
 
-  constructor(private staffService: StaffService) { 
+  constructor(private staffService: StaffService, private router: Router) { 
   }
 
   ngOnInit() {
@@ -25,14 +25,13 @@ export class StaffEditComponent implements OnInit {
   }
 
   onSubmitForm() {
-    console.log(this.staffs);
     var isSuccess = true;
-
     // Validates Phone number
     if(this.staff.Phone) {
       this.validationClassPhone = "form-control is-valid";
       this.validationMessagePhone = "";
-      // TODO: Validate duplicate
+      // Validate duplicate
+      //console.log(this.staffService.getStaffByID("qwzeuimmPMp1ROYvOdjF"));
     }
     else {
       this.validationClassPhone = "form-control is-invalid";
@@ -55,7 +54,9 @@ export class StaffEditComponent implements OnInit {
 
     if( isSuccess) {
       // TODO: Redirect
+      this.staffService.addStaff(this.staff);
+      this.router.navigate(['TransactionDashboard']);
+      return;
     }
-    console.log(this.validationClassPhone);
   }
 }

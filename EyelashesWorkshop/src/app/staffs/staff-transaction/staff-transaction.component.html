@@ -1,15 +1,16 @@
- <div class="container">
+<div class="container">
   <h5 class="pb-2 mb-2 font-italic border-bottom">
-    From the Firehose
+    Hàng Giao Từ Thợ
   </h5>
   <form>
     <div class="form-row mb-3 pb-3 border-bottom">
       <!-- Staff Phone -->
       <div class="input-group mb-2 col-md-6 SearchStaffGroup">
-        <input type="text" class="form-control" id="SearchStaff" placeholder="Recipient's username" aria-label="Recipient's username"
+        <input type="text" class="form-control" id="SearchStaff" placeholder="Tìm thông tin thợ"
+          [(ngModel)]="searchText" name="searchText" aria-label="Recipient's username"
           aria-describedby="SearchStaffHelp">
         <div class="input-group-append">
-          <button class="btn btn-outline-secondary border-0" type="button" id="SearchStaffHelp">
+          <button class="btn btn-outline-secondary border-0" type="button" id="SearchStaffHelp" (click)="onSearch()">
             <i class="material-icons">search</i>
             <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
           </button>
@@ -19,168 +20,127 @@
       <!-- Search Staff Result -->
       <div class=" col-md-6 SearchStaffResult">
         <div class="row">
-          <div class="col-lg-6">
-              <div class="card StaffCard">
-                  <div class="card-body">
-                          <label class="col col-form-label">
-                              <i class="material-icons">face</i>
-                              Ten Tho
-                          </label>
-                            <label class="col col-form-label">
-                                <i class="material-icons">smartphone</i>
-                                0901122123
-                            </label>
-                  </div>
-                </div>
-          </div>
-          <div class="col-lg-6">
-              <div class="card StaffCard">
-                  <div class="card-body">
-                      <label class="col col-form-label">
-                          <i class="material-icons">face</i>
-                          Ten Tho
-                      </label>
-                        <label class="col col-form-label">
-                            <i class="material-icons">smartphone</i>
-                            0901122123
-                        </label>
-                  </div>
-                </div>
-          </div>
-          <div class="col-lg-6">
-              <div class="card StaffCard">
-                  <div class="card-body">
-                      <label class="col col-form-label">
-                          <i class="material-icons">face</i>
-                          Ten Tho
-                      </label>
-                        <label class="col col-form-label">
-                            <i class="material-icons">smartphone</i>
-                            0901122123
-                        </label>
-                  </div>
-                </div>
+          <div class="col-lg-6" *ngFor="let searchedStaff of searchedStaffs" (click)="onSelectStaff(searchedStaff)">
+            <div [ngClass]="isSearchSelected ? 'bg-dark text-white card StaffCard' : 'card StaffCard'">
+              <div class="card-body">
+                <label class="col col-form-label">
+                  <i class="material-icons">face</i>
+                  {{searchedStaff.Name}}
+                </label>
+                <label class="col col-form-label">
+                  <i class="material-icons">smartphone</i>
+                  {{searchedStaff.Phone}}
+                </label>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
     <!-- Item Add -->
-    <div class="form-row border-bottom">
-        <!-- Selection Menu -->
+    <div class="form-row border-bottom" [hidden]="!isSearchSelected">
+      <!-- Selection Menu -->
       <div class="form-group col-3">
-          <select class="form-control bg-dark text-white" id="formLashVolume">
-              <option value="" selected disabled hidden>Volume</option>
-              <option value="">1</option>
-              <option value="">2</option>
-              <option value="">3</option>
-              <option value="">4</option>
-              <option value="">5</option>
-            </select>
+        <select class="form-control bg-dark text-white" id="formLashVolume" name="volumeSelection"
+          [(ngModel)]="selectedVolume" (change)="onTypeChange()">
+          <option value="" selected disabled hidden>Loại Fan</option>
+          <option value="3D">3D</option>
+          <option value="4D">4D</option>
+          <option value="5D">5D</option>
+        </select>
       </div>
       <div class="form-group col-3">
-          <select class="form-control bg-dark text-white" id="formLashLength">
-              <option value="" selected disabled hidden>Length</option>
-              <option value="">1</option>
-              <option value="">2</option>
-              <option value="">3</option>
-              <option value="">4</option>
-              <option value="">5</option>
-            </select>
+        <select class="form-control bg-dark text-white" id="formLashLength" name="lengthSelection"
+          [(ngModel)]="selectedLength" (change)="onTypeChange()">
+          <option value="" selected disabled hidden>Dài</option>
+          <option value="9mm">9mm</option>
+          <option value="10mm">10mm</option>
+          <option value="11mm">11mm</option>
+          <option value="12mm">12mm</option>
+          <option value="13mm">13mm</option>
+          <option value="14mm">14mm</option>
+          <option value="15mm">15mm</option>
+          <option value="16mm">16mm</option>
+        </select>
       </div>
       <div class="form-group col-3">
-          <select class="form-control bg-dark text-white" id="formLashCurl">
-              <option value="" selected disabled hidden>Curl</option>
-              <option value="">1</option>
-              <option value="">2</option>
-              <option value="">3</option>
-              <option value="">4</option>
-              <option value="">5</option>
-            </select>
+        <select class="form-control bg-dark text-white" id="formLashCurl" name="curlSelection"
+          [(ngModel)]="selectedCurl" (change)="onTypeChange()">
+          <option value="" selected disabled hidden>Cong</option>
+          <option value="C">C</option>
+          <option value="CC">CC</option>
+          <option value="D">D</option>
+        </select>
       </div>
       <div class="form-group col-3">
-          <select class="form-control bg-dark text-white" id="formLashHair">
-              <option value="" selected disabled hidden>Width</option>
-              <option value="">1</option>
-              <option value="">2</option>
-              <option value="">3</option>
-              <option value="">4</option>
-              <option value="">5</option>
-            </select>
+        <select class="form-control bg-dark text-white" id="formLashHair" name="hairSelection"
+          [(ngModel)]="selectedHair" (change)="onTypeChange()">
+          <option value="" selected disabled hidden>Tóc</option>
+          <option value="0.07">0.07</option>
+          <option value="0.10">0.10</option>
+        </select>
       </div>
       <!-- Selection Menu -->
-          <div class="input-group col-5 formQuantity">
-              <div class="input-group-prepend">
-                <span class="input-group-text bg-dark text-white">Quantity</span>
-              </div>
-              <input type="number" aria-label="Quantity" class="form-control">
-            </div>
-            <div class="input-group col-2 formQuantity">
-              <button type="button" class="btn btn-success">Add</button>
-            </div>
-            <div class="input-group col-5 formPrice">
-                <input type="text" class="form-control" aria-label="VND" readonly>
-                <div class="input-group-append">
-                  <span class="input-group-text bg-dark text-white">VND</span>
-                </div>
-              </div>
+      <div class="input-group col-5 formQuantity" [hidden]="!isTypeAddable">
+        <div class="input-group-prepend">
+          <span class="input-group-text bg-dark text-white">Số Lượng</span>
+        </div>
+        <input type="number" aria-label="Quantity" class="form-control" [(ngModel)]="selectedQuantity" name="quantity"
+          onClick="this.select()">
+      </div>
+      <div class="input-group col-2 formQuantity" [hidden]="!isTypeAddable">
+        <button type="button" class="btn btn-success" (click)="addTransaction()">Thêm</button>
+      </div>
+      <div class="input-group col-5 formPrice" [hidden]="!isTypeAddable">
+        <input type="text" class="form-control" aria-label="VND" readonly [value]="selectedPrice">
+        <div class="input-group-append">
+          <span class="input-group-text bg-dark text-white">VND</span>
+        </div>
+      </div>
       <!-- Item Added Table -->
-      <div class="input-group pt-3 col-12 formItemsTable">
-          <table class="table table-striped">
-              <thead class="thead-dark">
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Type</th>
-                  <th class="text_right" scope="col">Quantity</th>
-                  <th class="text_right" scope="col">Price</th>
-                  <th class="text_right" scope="col">Total</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td class="text_right">Otto</td>
-                  <td class="text_right">@mdo</td>
-                  <td class="text_right">@mdo</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td class="text_right">Thornton</td>
-                  <td class="text_right">@fat</td>
-                  <td class="text_right">@mdo</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Larry</td>
-                  <td class="text_right">the Bird</td>
-                  <td class="text_right">@twitter</td>
-                  <td class="text_right">@mdo</td>
-                </tr>
-              </tbody>
-              <tfoot class="bg-dark text-white">
-                  <tr>
-                    <td scope="col">Total</td>
-                    <td scope="col"></td>
-                    <td class="text_right" scope="col">Quantity</td>
-                    <td class="text_right" scope="col"></td>
-                    <td class="text_right" scope="col">Total</td>
-                  </tr>
-                </tfoot>
-            </table>  
+      <div class="input-group pt-3 col-12 formItemsTable" [hidden]="!isTypeAddable || transactions.length <= 0">
+        <table class="table table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Loại</th>
+              <th class="text_right" scope="col">Số Lượng</th>
+              <th class="text_right" scope="col">Giá</th>
+              <th class="text_right" scope="col">Tổng Cộng</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let transaction of transactions; let i = index">
+              <th scope="row">{{i+1}}</th>
+              <td>{{transaction.Volume}}-{{transaction.Length}}-{{transaction.Curl}}-{{transaction.Hair}}</td>
+              <td class="text_right">{{transaction.Quantity}}</td>
+              <td class="text_right">{{transaction.Price}}</td>
+              <td class="text_right">{{transaction.Quantity*transaction.Price}}</td>
+            </tr>
+          </tbody>
+          <tfoot class="bg-dark text-white">
+            <tr>
+              <td scope="col">Tổng</td>
+              <td scope="col">{{transactions.length}} món</td>
+              <td class="text_right" scope="col">{{totalQuantity}}</td>
+              <td class="text_right" scope="col"></td>
+              <td class="text_right" scope="col">{{totalPrice}}</td>
+            </tr>
+          </tfoot>
+        </table>
       </div>
     </div>
     <!-- Signature and Action buttons-->
     <div class="form-row">
-        <!-- Signature -->
-        <div class="col-md-6 border border-dark mt-3" id="SignPad">
-            <app-signature-pad></app-signature-pad>
-        </div>
-        <!-- Action Buttons -->
-        <div class="col-md-6 pt-3 text-right">
-              <button type="button" class="btn btn-outline-success pull-right mr-1">Clear</button>
-              <button type="button" class="btn btn-success pull-right ml-1">save</button>
-        </div>
+      <!-- Signature -->
+      <div class="col-md-6 border border-dark mt-3" id="SignPad">
+        <app-signature-pad #signaturePad></app-signature-pad>
+      </div>
+      <!-- Action Buttons -->
+      <div class="col-md-6 pt-3 text-right" [hidden]="!isSearchSelected">
+        <button type="button" class="btn btn-outline-success pull-right mr-1" (click)="formClear()">Xóa</button>
+        <button type="button" class="btn btn-success pull-right ml-1" (click)="onSubmit()">Lưu</button>
+      </div>
     </div>
   </form>
 </div>

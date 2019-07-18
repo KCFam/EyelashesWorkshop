@@ -7,6 +7,8 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import { environment } from '../environments/environment';
 
+import { ChartsModule } from 'ng2-charts';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppHeaderComponent } from './_layout/app-header/app-header.component';
@@ -56,7 +58,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
     FormsModule,
     SignaturePadModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    ChartsModule
   ],
   providers: [AngularFirestore],
   bootstrap: [AppComponent]

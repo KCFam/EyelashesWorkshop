@@ -1,42 +1,26 @@
 <div class="container">
     <h5 class="pb-2 mb-2 font-italic border-bottom">
-      From the Firehose
+      Thống kê
     </h5>
-    <table class="table">
+    <table class="table" (click)="click()">
         <thead class="thead-dark">
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Volumn</th>
-            <th scope="col">Length</th>
-            <th scope="col">Curl</th>
-            <th scope="col">Width</th>
-            <th scope="col">Total</th>
+            <th scope="col">Loại Fan</th>
+            <th scope="col">Dài</th>
+            <th scope="col">Cong</th>
+            <th scope="col">Tóc</th>
+            <th scope="col">Tổng</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
+          <tr *ngFor="let transactionDashboard of transactionDashboards; let i = index">
+            <th scope="row">{{i+1}}</th>
+            <td>{{transactionDashboard.Volume}}</td>
+            <td>{{transactionDashboard.Length}}</td>
+            <td>{{transactionDashboard.Curl}}</td>
+            <td>{{transactionDashboard.Hair}}</td>
+            <td>{{transactionDashboard.Quantity}}</td>
           </tr>
         </tbody>
         <tfoot class="bg-dark text-white">
@@ -50,4 +34,16 @@
             </tr>
           </tfoot>
       </table>
+
+      <div>
+        <div style="display: block">
+          <canvas baseChart
+                  [datasets]="barChartData"
+                  [labels]="barChartLabels"
+                  [options]="barChartOptions"
+                  [legend]="barChartLegend"
+                  [chartType]="barChartType">
+          </canvas>
+        </div>
+      </div>
   </div>
