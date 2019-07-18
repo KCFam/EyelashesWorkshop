@@ -39,7 +39,7 @@ export class StaffTransactionComponent implements OnInit {
       this.staffList = data
       .map(e => {
         return {
-          id: e.payload.doc.id,
+          ID: e.payload.doc.id,
           ...e.payload.doc.data()
         } as StaffModel;
       })

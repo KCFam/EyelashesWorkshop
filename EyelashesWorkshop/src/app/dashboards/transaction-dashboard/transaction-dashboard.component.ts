@@ -33,7 +33,7 @@ export class TransactionDashboardComponent implements OnInit {
       this.staffTransactions = data
         .map(e => {
           return {
-            id: e.payload.doc.id,
+            ID: e.payload.doc.id,
             ...e.payload.doc.data()
           } as StaffTransaction;
         });
