@@ -10,12 +10,12 @@ import { Observable } from 'rxjs';
 export class StaffService {
   staff: StaffModel;
 
-  constructor( private firestore: AngularFirestore ) { 
+  constructor( private db: AngularFirestore ) { 
     
   }
 
   getStaffs() {
-    return this.firestore.collection('Staffs').snapshotChanges();
+    return this.db.collection('Staffs').snapshotChanges();
   }
 
   getStaffByPhone(phone: string) {
@@ -32,7 +32,7 @@ export class StaffService {
     //     return data;
     //   });
     // });
-    this.firestore.collection('Staffs').doc(id).get().subscribe((docRef ) => {    
+    this.db.collection('Staffs').doc(id).get().subscribe((docRef ) => {    
       return docRef.data() as StaffModel;          
     });
 
@@ -41,26 +41,26 @@ export class StaffService {
 
   addStaff(staff: StaffModel) {
     staff.NameAlias = LanguageService.NonUnicode(staff.Name);
-    this.firestore.collection<StaffModel>('Staffs').add(JSON.parse(JSON.stringify(staff)));
+    this.db.collection<StaffModel>('Staffs').add(JSON.parse(JSON.stringify(staff)));
     console.log("New Staff added");
   }
 
   updateStaff(staff: StaffModel) {
     delete staff.ID;
-    this.firestore.doc('Staffs/' + staff.ID).update(staff);
+    this.db.doc('Staffs/' + staff.ID).update(staff);
   }
 
   deleteStaff( staffID: string) {
-    this.firestore.doc('Staffs/' + staffID).delete();
+    this.db.doc('Staffs/' + staffID).delete();
   }
 
   addStaffTransaction( staffTransaction: StaffTransaction) {
-    this.firestore.collection<StaffTransaction>('StaffTransactions').add(JSON.parse(JSON.stringify(staffTransaction)));
+    this.db.collection<StaffTransaction>('StaffTransactions').add(JSON.parse(JSON.stringify(staffTransaction)));
     console.log("New Staff Transaction added");
   }
 
   getStaffTransactions() {
-    return this.firestore.collection('StaffTransactions').snapshotChanges();
+    return this.db.collection('StaffTransactions').snapshotChanges();
   }
 
   addTransactionSignature() {
