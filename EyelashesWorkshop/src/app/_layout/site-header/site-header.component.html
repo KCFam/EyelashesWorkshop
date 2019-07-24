@@ -30,13 +30,24 @@
 <!-- Menu bar for small display -->
 <div class="nav_small_screen dropup">
   <button type="button" class="btn btn-dark btn_circle_lg nav_menu_button dropdown-toggle" type="button"
-    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   data-toggle="modal" data-target="#navModal" aria-haspopup="true" aria-expanded="false">
     <i class="material-icons">menu</i>
   </button>
-  <div class="dropdown-menu nav_menu_color dropdown-menu-right">
-    <!-- Dropdown menu links -->
-    <a class="dropdown-item nav_menu_text_color" href="AddStaffTransaction">Thêm Hàng Giao</a>
-    <a class="dropdown-item nav_menu_text_color" href="TransactionDashboard">Thống Kê Hàng Giao</a>
-    <a class="dropdown-item nav_menu_text_color" href="AddStaff">Thêm Thợ</a>
+  <!-- Modal -->
+<div class="modal fade" id="navModal" tabindex="-1" role="dialog" aria-labelledby="navModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content bg-transparent">
+      <div class="modal-body">
+        <div class="btn-group-vertical col-12">
+            <button type="button" class="btn btn-dark btn-block btn-large" routerLink="/AddStaffTransaction" onclick="$('#navModal').modal('hide')">Thêm Hàng Giao</button>
+            <button type="button" class="btn btn-dark btn-block btn-large" routerLink="/TransactionDashboardComponent" onclick="$('#navModal').modal('hide')">Thống Kê Hàng Giao</button>
+            <button type="button" class="btn btn-dark btn-block btn-large" routerLink="/AddStaff" onclick="$('#navModal').modal('hide')">Thêm Thợ</button>
+            <button type="button" class="btn btn-dark btn-block btn-large" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+</div>
+
+
