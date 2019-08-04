@@ -133,14 +133,30 @@
     <!-- Signature and Action buttons-->
     <div class="form-row">
       <!-- Signature -->
-      <div class="col-md-6 border border-dark mt-3" id="SignPad">
-        <app-signature-pad #signaturePad></app-signature-pad>
+      <div class="col-md-6 border border-dark mt-3" style="overflow: hidden; height: 0;" id="SignPad">
+        <app-signature-pad></app-signature-pad>
       </div>
       <!-- Action Buttons -->
-      <div class="col-md-6 pt-3 text-right" [hidden]="!isSearchSelected">
+      <div class="col-md-6 pt-3 text-right" [hidden]="isSearchSelected">
         <button type="button" class="btn btn-outline-success pull-right mr-1" (click)="formClear()">Xóa</button>
-        <button type="button" class="btn btn-success pull-right ml-1" (click)="onSubmit()">Lưu</button>
+        <button type="button" class="btn btn-success pull-right ml-1" onClick="$('#confirmModal').modal('show')">Lưu</button>
       </div>
     </div>
   </form>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header" (click)="onSubmit()">
+            <h5 class="modal-title" id="confirmModalTitle">Modal title</h5>
+          </div>
+      <div class="modal-body">
+          <div class="col-12 border border-dark mt-3" id="SignPad">
+              <app-signature-pad #signaturePad></app-signature-pad>
+            </div>
+      </div>
+    </div>
+  </div>
 </div>

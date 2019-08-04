@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { SignaturePad } from 'angular2-signaturepad/signature-pad';
 
 @Component({
@@ -11,7 +11,7 @@ export class SignaturePadComponent implements OnInit {
 
   @ViewChild(SignaturePad, { static: true }) signaturePad: SignaturePad;
   public signaturePadOptions: Object = {
-    'minWidth': 5,
+    'minWidth': 2,
     'canvasWidth': 375,
     'canvasHeight': 300
   }
@@ -22,7 +22,7 @@ export class SignaturePadComponent implements OnInit {
 
   ngAfterViewInit() {
     // this.signaturePad is now available
-    this.signaturePad.set('minWidth',5);
+    this.signaturePad.set('minWidth',2);
     this.signaturePad.set('canvasWidth',document.getElementById("SignPad").clientWidth);
     this.signaturePad.clear();
   }

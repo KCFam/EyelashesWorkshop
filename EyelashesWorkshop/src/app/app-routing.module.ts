@@ -23,7 +23,7 @@ const routes: Routes = [
     path: '', 
     component: SiteLayoutComponent,
     children: [
-      { path: '', component: StaffTransactionComponent, pathMatch: 'full'},
+      { path: '', component: TransactionDashboardComponent, pathMatch: 'full'},
       
       { path: 'AddStaffTransaction', component: StaffTransactionComponent },
       { path: 'TransactionDashboard', component: TransactionDashboardComponent },

@@ -3,9 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { AngularFireModule } from '@angular/fire';
-import * as firebase from 'firebase';
-import 'firebase/firestore';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import { environment } from '../environments/environment';
 
@@ -61,7 +59,7 @@ import { StaffService } from './staffs/staff.service';
     FormsModule,
     SignaturePadModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule,
+    AngularFirestoreModule,
     ChartsModule
   ],
   providers: [AngularFirestore],
