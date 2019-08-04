@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild,ElementRef } from '@angular/core';
 import { StaffService, StaffModel, StaffTransaction, StaffHelper, Transaction } from '../staff.service';
 import { SignaturePadComponent } from '../../Utilities/signature-pad/signature-pad.component';
 import { SignaturePad } from 'angular2-signaturepad/signature-pad';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-staff-transaction',
@@ -31,7 +32,7 @@ export class StaffTransactionComponent implements OnInit {
   totalQuantity: number = 0;
   totalPrice: number = 0;
 
-  constructor( private staffService: StaffService) { }
+  constructor( public staffService: StaffService) { }
 
   ngOnInit() {
     // Get the Staff list

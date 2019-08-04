@@ -22,6 +22,7 @@ export class StaffService {
     // this.firestore.collection('Staffs').doc()
     //   this.firestore.collection('Staffs').ref.where("Phone","==",phone)
     //   );
+    
   }
 
   getStaffByID(id: string) : Observable<StaffModel> {

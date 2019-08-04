@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "eyelashes-manager"
+    "default": "eyelashes-manager",
+    "staging": "eyelashes-manager"
   }
 }
