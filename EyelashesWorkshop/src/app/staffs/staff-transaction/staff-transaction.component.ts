@@ -1,15 +1,14 @@
-import { Component, OnInit, ViewChild,ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild,ElementRef, AfterViewInit } from '@angular/core';
 
 import { StaffService, StaffModel, StaffTransaction, StaffHelper, Transaction } from '../staff.service';
 import { SignaturePadComponent } from '../../Utilities/signature-pad/signature-pad.component';
-import { SignaturePad } from 'angular2-signaturepad/signature-pad';
 
 @Component({
   selector: 'app-staff-transaction',
   templateUrl: './staff-transaction.component.html',
   styleUrls: ['./staff-transaction.component.scss']
 })
-export class StaffTransactionComponent implements OnInit {
+export class StaffTransactionComponent implements AfterViewInit {
 
   staffList: StaffModel[];
   searchText: string = "";
@@ -31,6 +30,8 @@ export class StaffTransactionComponent implements OnInit {
   totalQuantity: number = 0;
   totalPrice: number = 0;
 
+  @ViewChild(SignaturePadComponent, {static:false}) signPadRef : SignaturePadComponent;
+
   constructor( private staffService: StaffService) { }
 
   ngOnInit() {
@@ -44,6 +45,9 @@ export class StaffTransactionComponent implements OnInit {
         } as StaffModel;
       })
     });
+  }
+
+  ngAfterViewInit() {
   }
 
   onSearch() {
@@ -109,6 +113,8 @@ export class StaffTransactionComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.signPadRef.signaturePad.toDataURL());
+    return;
     if( this.searchedStaffs.length != 1) {
       return;
     }
