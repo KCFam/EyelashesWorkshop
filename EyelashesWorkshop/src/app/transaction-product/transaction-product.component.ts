@@ -1,20 +1,24 @@
 import { Component, OnInit, ViewChild,ElementRef, AfterViewInit } from '@angular/core';
 
-import { StaffService, StaffModel, StaffTransaction, StaffHelper, Transaction } from '../staff.service';
-import { SignaturePadComponent } from '../../Utilities/signature-pad/signature-pad.component';
+import { StaffService, StaffModel } from '../services/staff.service';
+import { TransactionProductService, TransactionProductModel, TransactionModel, TransactionProductSignatureModel} from '../services/transaction-product.service';
+import { SignaturePadComponent } from '../Utilities/signature-pad/signature-pad.component';
 
 @Component({
-  selector: 'app-staff-transaction',
-  templateUrl: './staff-transaction.component.html',
-  styleUrls: ['./staff-transaction.component.scss']
+  selector: 'app-transaction-product',
+  templateUrl: './transaction-product.component.html',
+  styleUrls: ['./transaction-product.component.scss']
 })
-export class StaffTransactionComponent implements AfterViewInit {
+export class TransactionProductComponent implements AfterViewInit {
+  // display flag
+  isSearchSelected: boolean = false;
+  isTypeAddable: boolean = false;
 
+  // Form Control Data
   staffList: StaffModel[];
   searchText: string = "";
   searchedStaffs: StaffModel[] = [];
-  isSearchSelected: boolean = false;
-
+  
   selectedVolume: string = "";
   selectedLength: string = "";
   selectedCurl: string = "";
@@ -22,17 +26,18 @@ export class StaffTransactionComponent implements AfterViewInit {
   selectedQuantity: number = 0;
   selectedPrice: number = 0;
 
-  isTypeAddable: boolean = false;
-
-  staffTransaction: StaffTransaction = new StaffTransaction();
-  transactions: Transaction[] = [];
+  transactionProduct: TransactionProductModel = new TransactionProductModel();
+  transactions: TransactionModel[] = [];
 
   totalQuantity: number = 0;
   totalPrice: number = 0;
 
+  texts: string[];
+
+  // Child Views
   @ViewChild(SignaturePadComponent, {static:false}) signPadRef : SignaturePadComponent;
 
-  constructor( private staffService: StaffService) { }
+  constructor( private staffService: StaffService, private transactionProductService : TransactionProductService) { }
 
   ngOnInit() {
     // Get the Staff list
@@ -57,19 +62,23 @@ export class StaffTransactionComponent implements AfterViewInit {
     }
 
     // Get the Staff list
-    this.searchedStaffs = this.staffList.filter(staff => staff.Name.toUpperCase().includes(this.searchText.toUpperCase()));
+    this.searchedStaffs = this.staffList.filter(
+      staff => 
+        staff.Name.toUpperCase().includes(this.searchText.toUpperCase()) || 
+        staff.Phone.includes(this.searchText)
+    );
   }
 
   onSelectStaff(searchedStaff: StaffModel) {
     this.searchedStaffs = [searchedStaff];
     this.isSearchSelected = true;
-    this.staffTransaction.StaffName = searchedStaff.Name;
+    this.transactionProduct.StaffName = searchedStaff.Name;
   }
 
   onTypeChange() {
     if( this.selectedVolume && this.selectedLength && this.selectedCurl && this.selectedHair) {
       this.isTypeAddable = true;
-      this.selectedPrice = Number.parseInt(StaffHelper.getPrice(this.selectedVolume, this.selectedLength, this.selectedCurl, this.selectedHair));
+      this.selectedPrice = Number.parseInt(this.transactionProductService.getPrice(this.selectedVolume, this.selectedLength, this.selectedCurl, this.selectedHair));
     }
     else {
       this.isTypeAddable = false;
@@ -93,7 +102,7 @@ export class StaffTransactionComponent implements AfterViewInit {
 
   addTransaction() {
       if( this.selectedQuantity > 0) {
-        var transaction = new Transaction();
+        var transaction = new TransactionModel();
         transaction.Volume = this.selectedVolume;
         transaction.Length = this.selectedLength;
         transaction.Curl = this.selectedCurl;
@@ -115,18 +124,5 @@ export class StaffTransactionComponent implements AfterViewInit {
   onSubmit() {
     console.log(this.signPadRef.signaturePad.toDataURL());
     return;
-    if( this.searchedStaffs.length != 1) {
-      return;
-    }
-    if( this.transactions.length < 1) {
-      return;
-    }
-
-    this.staffTransaction.StaffName = this.searchedStaffs[0].Name;
-    this.staffTransaction.Quantity = this.totalQuantity;
-    this.staffTransaction.Total = this.totalPrice;
-    this.staffTransaction.Transactions = this.transactions;
-
-    this.staffService.addStaffTransaction(this.staffTransaction);
   }
 }

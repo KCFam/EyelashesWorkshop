@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { SiteLayoutComponent } from './_layout/site-layout/site-layout.component';
-import { AppLayoutComponent } from './_layout/app-layout/app-layout.component';
-
 
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
@@ -12,8 +10,8 @@ import { RegisterComponent } from './register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
 
-import { StaffTransactionComponent } from './staffs/staff-transaction/staff-transaction.component';
-import { StaffEditComponent } from './staffs/staff-edit/staff-edit.component';
+import { TransactionProductComponent } from './transaction-product/transaction-product.component';
+import { StaffComponent } from './staffs/staff.component';
 import { TransactionDashboardComponent } from './dashboards/transaction-dashboard/transaction-dashboard.component';
 
 const routes: Routes = [
@@ -25,19 +23,11 @@ const routes: Routes = [
     children: [
       { path: '', component: TransactionDashboardComponent, pathMatch: 'full'},
       
-      { path: 'AddStaffTransaction', component: StaffTransactionComponent },
+      { path: 'TransactionProduct', component: TransactionProductComponent },
       { path: 'TransactionDashboard', component: TransactionDashboardComponent },
-      { path: 'AddStaff', component: StaffEditComponent },
-      { path: 'EditStaff/:id', component: StaffEditComponent }
+      { path: 'Staff', component: StaffComponent },
+      { path: 'Staff/:id', component: StaffComponent }
     ]
-  },
-
-  // App routes goes here here
-  { 
-      path: '',
-      component: AppLayoutComponent, 
-      children: [
-      ]
   },
 
   //no layout routes

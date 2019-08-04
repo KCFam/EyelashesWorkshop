@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { StaffService, TransactionDashboard, StaffTransaction } from '../../staffs/staff.service';
+import { StaffService } from '../../services/staff.service';
+import { TransactionDashboardModel, TransactionModel, TransactionProductModel, TransactionProductService} from '../../services/transaction-product.service';
 
 @Component({
   selector: 'app-transaction-dashboard',
@@ -9,8 +10,8 @@ import { StaffService, TransactionDashboard, StaffTransaction } from '../../staf
 })
 export class TransactionDashboardComponent implements OnInit {
 
-  transactionDashboards: TransactionDashboard[] = [];
-  staffTransactions: StaffTransaction[] = [];
+  transactionDashboards: TransactionDashboardModel[] = [];
+  transactionProducts: TransactionProductModel[] = [];
 
   public barChartOptions = {
     scaleShowVerticalLines: false,
@@ -25,60 +26,60 @@ export class TransactionDashboardComponent implements OnInit {
     {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'}
   ];
 
-  constructor(private staffService: StaffService) { }
+  constructor(private staffService: StaffService, private transactionProductService: TransactionProductService) { }
 
   ngOnInit() {
     // Get the StaffTransaction list
-    this.staffService.getStaffTransactions().subscribe(data => {
-      this.staffTransactions = data
+    this.transactionProductService.getStaffTransactions().subscribe(data => {
+      this.transactionProducts = data
         .map(e => {
           return {
             ID: e.payload.doc.id,
             ...e.payload.doc.data()
-          } as StaffTransaction;
+          } as TransactionProductModel;
         });
 
       // fill the table
       
-      for (var staffTransaction of this.staffTransactions) {
-        for (var transaction of staffTransaction.Transactions) {
-          // Insert unique
-          if (this.transactionDashboards.length == 0) {
-            console.log("dafda");
-            var newTransactionDashboard = new TransactionDashboard;
+      // for (var staffTransaction of this.staffTransactions) {
+      //   for (var transaction of staffTransaction.Transactions) {
+      //     // Insert unique
+      //     if (this.transactionDashboards.length == 0) {
+      //       console.log("dafda");
+      //       var newTransactionDashboard = new TransactionDashboard;
 
-            newTransactionDashboard.Volume = transaction.Volume;
-            newTransactionDashboard.Length = transaction.Length;
-            newTransactionDashboard.Curl = transaction.Curl;
-            newTransactionDashboard.Hair = transaction.Hair;
-            newTransactionDashboard.Quantity = transaction.Quantity;
+      //       newTransactionDashboard.Volume = transaction.Volume;
+      //       newTransactionDashboard.Length = transaction.Length;
+      //       newTransactionDashboard.Curl = transaction.Curl;
+      //       newTransactionDashboard.Hair = transaction.Hair;
+      //       newTransactionDashboard.Quantity = transaction.Quantity;
 
-            this.transactionDashboards.push(newTransactionDashboard);
-          }
-          else {
-            for (var transactionDashboard of this.transactionDashboards) {
-              if (transactionDashboard.Volume != transaction.Volume
-                || transactionDashboard.Length != transaction.Length
-                || transactionDashboard.Curl != transaction.Curl
-                || transactionDashboard.Hair != transaction.Hair) {
-                var newTransactionDashboard = new TransactionDashboard;
+      //       this.transactionDashboards.push(newTransactionDashboard);
+      //     }
+      //     else {
+      //       for (var transactionDashboard of this.transactionDashboards) {
+      //         if (transactionDashboard.Volume != transaction.Volume
+      //           || transactionDashboard.Length != transaction.Length
+      //           || transactionDashboard.Curl != transaction.Curl
+      //           || transactionDashboard.Hair != transaction.Hair) {
+      //           var newTransactionDashboard = new TransactionDashboard;
 
-                newTransactionDashboard.Volume = transaction.Volume;
-                newTransactionDashboard.Length = transaction.Length;
-                newTransactionDashboard.Curl = transaction.Curl;
-                newTransactionDashboard.Hair = transaction.Hair;
-                newTransactionDashboard.Quantity = transaction.Quantity;
+      //           newTransactionDashboard.Volume = transaction.Volume;
+      //           newTransactionDashboard.Length = transaction.Length;
+      //           newTransactionDashboard.Curl = transaction.Curl;
+      //           newTransactionDashboard.Hair = transaction.Hair;
+      //           newTransactionDashboard.Quantity = transaction.Quantity;
 
-                this.transactionDashboards.push(newTransactionDashboard);
-              }
-              else {
-                transactionDashboard.Quantity += transaction.Quantity;
-              }
-            }
-          }
+      //           this.transactionDashboards.push(newTransactionDashboard);
+      //         }
+      //         else {
+      //           transactionDashboard.Quantity += transaction.Quantity;
+      //         }
+      //       }
+      //     }
 
-        }
-      }
+      //   }
+      // }
     });
   }
 }
