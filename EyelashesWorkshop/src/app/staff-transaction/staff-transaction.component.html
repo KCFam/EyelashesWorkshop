@@ -4,14 +4,14 @@
   </h5>
   <form>
     <div class="form-row mb-3 pb-3 border-bottom">
-      
+
       <!-- Staff Phone -->
       <div class="input-group mb-2 col-md-6 SearchStaffGroup">
         <input type="text" class="form-control" id="SearchStaff" placeholder="Tìm thông tin thợ"
           [(ngModel)]="searchText" name="searchText" aria-label="Recipient's username"
           aria-describedby="SearchStaffHelp">
         <div class="input-group-append">
-          <button class="btn btn-outline-secondary border-0" type="button" id="SearchStaffHelp" (click)="onSearch()">
+          <button class="btn btn-outline-secondary border-0" type="button" id="SearchStaffHelp" (click)="onSearch()" onClick="$('#confirmModal').modal('show')">
             <i class="material-icons">search</i>
             <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
           </button>
@@ -38,7 +38,7 @@
         </div>
       </div>
     </div>
-    
+
     <!-- Item Add -->
     <div class="form-row border-bottom" [hidden]="!isSearchSelected">
       <!-- Selection Menu -->
@@ -46,21 +46,21 @@
         <select class="form-control bg-dark text-white" id="formLashVolume" name="volumeSelection"
           [(ngModel)]="selectedVolume" (change)="onTypeChange()">
           <option value="" selected disabled hidden>Loại Fan</option>
-          <option *ngFor="let item of transactionProductService.getVolumeOptions()" [value]="item">{{item}}</option>
+          <option *ngFor="let item of productService.getVolumeOptions()" [value]="item">{{item}}</option>
         </select>
       </div>
       <div class="form-group col-4">
         <select class="form-control bg-dark text-white" id="formLashLength" name="lengthSelection"
           [(ngModel)]="selectedLength" (change)="onTypeChange()">
           <option value="" selected disabled hidden>Dài</option>
-          <option *ngFor="let item of transactionProductService.getLengthOptions()" [value]="item">{{item}}</option>
+          <option *ngFor="let item of productService.getLengthOptions()" [value]="item">{{item}}</option>
         </select>
       </div>
       <div class="form-group col-4">
         <select class="form-control bg-dark text-white" id="formLashHair" name="hairSelection"
           [(ngModel)]="selectedHair" (change)="onTypeChange()">
           <option value="" selected disabled hidden>Tóc</option>
-          <option *ngFor="let item of transactionProductService.getHairOptions()" [value]="item">{{item}}</option>
+          <option *ngFor="let item of productService.getHairOptions()" [value]="item">{{item}}</option>
         </select>
       </div>
       <!-- Selection Menu -->
@@ -81,7 +81,8 @@
         </div>
       </div>
       <!-- Item Added Table -->
-      <div class="input-group pt-3 col-12 formItemsTable" [hidden]="!isTypeAddable || transactions.length <= 0">
+      <div class="input-group pt-3 col-12 formItemsTable"
+        [hidden]="!isTypeAddable || staffTransactionItems.length <= 0">
         <table class="table table-striped">
           <thead class="thead-dark">
             <tr>
@@ -93,8 +94,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let transaction of transactions; let i = index">
-              <th scope="row">{{i+1}}</th>
+            <tr *ngFor="let transaction of staffTransactionItems; let i = index">
+              <th scope="row" (click)="removeTransaction(transaction)">{{i+1}}</th>
               <td>{{transaction.Volume}}-{{transaction.Length}}-{{transaction.Curl}}-{{transaction.Hair}}</td>
               <td class="text_right">{{transaction.Quantity}}</td>
               <td class="text_right">{{transaction.Price}}</td>
@@ -104,7 +105,7 @@
           <tfoot class="bg-dark text-white">
             <tr>
               <td scope="col">Tổng</td>
-              <td scope="col">{{transactions.length}} món</td>
+              <td scope="col">{{staffTransactionItems.length}} món</td>
               <td class="text_right" scope="col">{{totalQuantity}}</td>
               <td class="text_right" scope="col"></td>
               <td class="text_right" scope="col">{{totalPrice}}</td>
@@ -120,7 +121,8 @@
         <app-signature-pad></app-signature-pad>
       </div>
       <!-- Action Buttons -->
-      <div class="col-md-6 pt-3 text-right" [hidden]="isSearchSelected">
+      <div class="col-md-6 pt-3 text-right"
+        [hidden]="!isSearchSelected || !isTypeAddable || staffTransactionItems.length <= 0">
         <button type="button" class="btn btn-outline-success pull-right mr-1" (click)="formClear()">Xóa</button>
         <button type="button" class="btn btn-success pull-right ml-1"
           onClick="$('#confirmModal').modal('show')">Lưu</button>
@@ -135,12 +137,56 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header" (click)="onSubmit()">
-        <h5 class="modal-title" id="confirmModalTitle">Modal title</h5>
+        <h5 class="modal-title" id="confirmModalTitle">Tổng Tiền Công: 
+          <span class="text-danger">{{500000|currency:'VND':'code':'0.0-0'}}</span>
+        </h5>
       </div>
       <div class="modal-body">
+        <!-- Credit -->
+          <div class="input-group col-12 pb-2 modal_payment">
+              <label for="formCredit" class="col-3 col-form-label">Quỹ Tiền</label>
+              <div class="col-9">
+                <div class="input-group">
+                  <input type="number" id="formCredit" class="form-control" aria-label=".000 VND" placeholder="0" readonly>
+                  <div class="input-group-append">
+                    <span class="input-group-text bg-dark text-white">.000 VND</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Adjust -->
+          <div class="input-group col-12 pb-2 modal_payment">
+              <label for="formAdjust" class="col-3 col-form-label">Thêm/Bớt</label>
+              <div class="col-9">
+                <div class="input-group">
+                  <input type="number" id="formAdjust" [(ngModel)]="adjustmentAmount" class="form-control" aria-label=".000 VND" placeholder="0" onClick="this.select()" (keyup)="onAdjustChange()">
+                  <div class="input-group-append">
+                    <span class="input-group-text bg-dark text-white">.000 VND</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Total -->
+          <div class="input-group col-12 pb-2 modal_payment">
+              <label for="formTotal" class="col-3 col-form-label">Tổng Cộng</label>
+              <div class="col-9">
+                <div class="input-group">
+                  <input type="number" id="formTotal" [(ngModel)]="finalTotal" class="form-control text-danger" aria-label=".000 VND" placeholder="0" readonly>
+                  <div class="input-group-append">
+                    <span class="input-group-text bg-dark text-white">.000 VND</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <!-- Signature -->
         <div class="col-12 border border-dark mt-3" id="SignPad">
           <app-signature-pad #signaturePad></app-signature-pad>
         </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success pull-right mr-1" onClick="$('#confirmModal').modal('hide')">Hủy</button>
+        <button type="button" class="btn btn-success pull-right ml-1"
+          onClick="$('#confirmModal').modal('show')">Lưu</button>
       </div>
     </div>
   </div>

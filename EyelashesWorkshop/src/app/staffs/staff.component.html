@@ -25,11 +25,11 @@
         </div>
       </div>
       <!-- Staff Credit -->
-      <div class="input-group col-md-6 formStaffName pb-2">
-        <label for="formStaffName" class="col-sm-2 col-form-label">Quỹ Tiền</label>
+      <div class="input-group col-md-6 formStaffCredit pb-2">
+        <label for="formStaffCredit" class="col-sm-2 col-form-label">Quỹ Tiền</label>
         <div class="col-sm-10">
           <div class="input-group">
-            <input type="number" class="form-control" aria-label=".000 VND" placeholder="0" onClick="this.select()">
+            <input type="number" id="formStaffCredit" [(ngModel)]="staff.Credit" class="form-control" aria-label=".000 VND" placeholder="0" onClick="this.select()">
             <div class="input-group-append">
               <span class="input-group-text bg-dark text-white">.000 VND</span>
             </div>

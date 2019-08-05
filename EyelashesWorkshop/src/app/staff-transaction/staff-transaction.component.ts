@@ -21,7 +21,6 @@ export class StaffTransactionComponent implements AfterViewInit {
   
   selectedVolume: string = "";
   selectedLength: string = "";
-  selectedCurl: string = "";
   selectedHair: string = "";
   selectedQuantity: number = 0;
   selectedPrice: number = 0;
@@ -32,7 +31,9 @@ export class StaffTransactionComponent implements AfterViewInit {
   totalQuantity: number = 0;
   totalPrice: number = 0;
 
-  texts: string[];
+  // Modal data
+  adjustmentAmount: number = 0;
+  finalTotal: number = 0;
 
   // Child Views
   @ViewChild(SignaturePadComponent, {static:false}) signPadRef : SignaturePadComponent;
@@ -75,9 +76,9 @@ export class StaffTransactionComponent implements AfterViewInit {
   }
 
   onTypeChange() {
-    if( this.selectedVolume && this.selectedLength && this.selectedCurl && this.selectedHair) {
+    if( this.selectedVolume && this.selectedLength && this.selectedHair) {
       this.isTypeAddable = true;
-      this.selectedPrice = Number.parseInt(this.productService.getPrice(this.selectedVolume, this.selectedLength, this.selectedCurl, this.selectedHair));
+      this.selectedPrice = Number.parseInt(this.productService.getStaffTransactionPrice(this.selectedVolume, this.selectedLength, this.selectedHair));
     }
     else {
       this.isTypeAddable = false;
@@ -93,7 +94,6 @@ export class StaffTransactionComponent implements AfterViewInit {
     this.isTypeAddable = false;
     this.selectedVolume = "";
     this.selectedLength = "";
-    this.selectedCurl = "";
     this.selectedHair = "";
     this.selectedQuantity = 0;
     this.selectedPrice = 0;
@@ -108,19 +108,37 @@ export class StaffTransactionComponent implements AfterViewInit {
         staffTransactionItem.Quantity = this.selectedQuantity;
         staffTransactionItem.Price = this.selectedPrice;
         staffTransactionItem.Total = this.selectedQuantity * this.selectedPrice;
-        
         this.staffTransactionItems.push(staffTransactionItem);
-        this.totalPrice = 0;
+
+        this.recalculateTotal();
+      }
+  }
+  removeTransaction(transaction : StaffTransactionItemModel) {
+    const index = this.staffTransactionItems.indexOf(transaction,0);
+    if (index > -1) {
+      this.staffTransactionItems.splice(index,1);
+
+      this.recalculateTotal();
+    }
+  }
+  recalculateTotal() {
+    this.totalPrice = 0;
         this.totalQuantity = 0;
         for( var i=0; i < this.staffTransactionItems.length; i++) {
           this.totalQuantity += this.staffTransactionItems[i].Quantity;
           this.totalPrice += this.staffTransactionItems[i].Total;
         }
-      }
   }
+
+  // Modal functions
+  onAdjustChange() {
+    this.finalTotal = 500000 - this.adjustmentAmount*1000;
+  }
+
 
   onSubmit() {
     console.log(this.signPadRef.signaturePad.toDataURL());
     return;
   }
+
 }

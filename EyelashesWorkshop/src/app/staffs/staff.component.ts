@@ -22,7 +22,7 @@ export class StaffComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+    this.staff.Credit = 0;
   }
 
   onSubmitForm() {
@@ -52,6 +52,7 @@ export class StaffComponent implements OnInit {
     }
 
     if( isSuccess) {
+      this.staff.Credit = this.staff.Credit*1000;
       this.staffService.addStaff(this.staff);
       console.log("Staff Name " + this.staff.Name + " added!");
       this.router.navigate(['StaffTransaction']);

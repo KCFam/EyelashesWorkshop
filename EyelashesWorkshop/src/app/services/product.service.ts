@@ -10,7 +10,7 @@ export class ProductService {
   constructor( private db: AngularFirestore ) { }
 
   // Helper data
-  getPrice(volume:string, length:string, curl:string, hair: string) {
+  getStaffTransactionPrice(volume:string, length:string, hair: string) {
     switch(volume) {
       case "3D":
         return "900";

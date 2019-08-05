@@ -39,7 +39,7 @@ export class StaffModel {
   Phone: string;
   Address: string;
   Note: string;
-  Credit: string;
+  Credit: number;
   Transactions: StaffTransactionModel[];
 
 }
