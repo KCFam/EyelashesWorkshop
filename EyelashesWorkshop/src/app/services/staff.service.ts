@@ -40,4 +40,24 @@ export class StaffModel {
   Address: string;
   Note: string;
   Credit: string;
+  Transactions: StaffTransactionModel[];
+
+}
+
+export class StaffTransactionModel {
+  ID: string;
+  Date: string;
+  TransactionItems: StaffTransactionItemModel[];
+  Quantity: number;
+  Total: number;
+  Signature: string;
+}
+
+export class StaffTransactionItemModel {
+  Volume: string;
+  Length: string;
+  Hair: string;
+  Quantity: number;
+  Price: number;
+  Total: number;
 }

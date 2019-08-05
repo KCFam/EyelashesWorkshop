@@ -10,7 +10,7 @@ import { RegisterComponent } from './register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
 
-import { TransactionProductComponent } from './transaction-product/transaction-product.component';
+import { StaffTransactionComponent } from './staff-transaction/staff-transaction.component';
 import { StaffComponent } from './staffs/staff.component';
 import { TransactionDashboardComponent } from './dashboards/transaction-dashboard/transaction-dashboard.component';
 
@@ -21,9 +21,9 @@ const routes: Routes = [
     path: '', 
     component: SiteLayoutComponent,
     children: [
-      { path: '', component: TransactionDashboardComponent, pathMatch: 'full'},
+      { path: '', component: StaffTransactionComponent, pathMatch: 'full'},
       
-      { path: 'TransactionProduct', component: TransactionProductComponent },
+      { path: 'StaffTransaction', component: StaffTransactionComponent },
       { path: 'TransactionDashboard', component: TransactionDashboardComponent },
       { path: 'Staff', component: StaffComponent },
       { path: 'Staff/:id', component: StaffComponent }

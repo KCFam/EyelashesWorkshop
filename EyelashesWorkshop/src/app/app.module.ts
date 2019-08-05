@@ -27,7 +27,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
-import { TransactionProductComponent } from './transaction-product/transaction-product.component';
+import { StaffTransactionComponent } from './staff-transaction/staff-transaction.component';
 import { SignaturePadComponent } from './Utilities/signature-pad/signature-pad.component';
 import { StaffComponent } from './staffs/staff.component';
 import { TransactionDashboardComponent } from './dashboards/transaction-dashboard/transaction-dashboard.component';
@@ -47,7 +47,7 @@ import { TransactionDashboardComponent } from './dashboards/transaction-dashboar
     SignaturePadComponent,
     StaffComponent,
     TransactionDashboardComponent,
-    TransactionProductComponent
+    StaffTransactionComponent
   ],
   imports: [
     BrowserModule,

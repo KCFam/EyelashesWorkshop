@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { StaffService } from '../../services/staff.service';
-import { TransactionDashboardModel, TransactionModel, TransactionProductModel, TransactionProductService} from '../../services/transaction-product.service';
+import { TransactionProductModel, ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-transaction-dashboard',
@@ -10,7 +10,7 @@ import { TransactionDashboardModel, TransactionModel, TransactionProductModel, T
 })
 export class TransactionDashboardComponent implements OnInit {
 
-  transactionDashboards: TransactionDashboardModel[] = [];
+  //transactionDashboards: TransactionDashboardModel[] = [];
   transactionProducts: TransactionProductModel[] = [];
 
   public barChartOptions = {
@@ -26,18 +26,18 @@ export class TransactionDashboardComponent implements OnInit {
     {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'}
   ];
 
-  constructor(private staffService: StaffService, private transactionProductService: TransactionProductService) { }
+  constructor(private staffService: StaffService, private productService: ProductService) { }
 
   ngOnInit() {
     // Get the StaffTransaction list
-    this.transactionProductService.getStaffTransactions().subscribe(data => {
-      this.transactionProducts = data
-        .map(e => {
-          return {
-            ID: e.payload.doc.id,
-            ...e.payload.doc.data()
-          } as TransactionProductModel;
-        });
+    // this.transactionProductService.getStaffTransactions().subscribe(data => {
+    //   this.transactionProducts = data
+    //     .map(e => {
+    //       return {
+    //         ID: e.payload.doc.id,
+    //         ...e.payload.doc.data()
+    //       } as TransactionProductModel;
+    //     });
 
       // fill the table
       
@@ -80,6 +80,6 @@ export class TransactionDashboardComponent implements OnInit {
 
       //   }
       // }
-    });
+    //});
   }
 }

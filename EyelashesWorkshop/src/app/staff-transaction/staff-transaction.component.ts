@@ -1,15 +1,15 @@
 import { Component, OnInit, ViewChild,ElementRef, AfterViewInit } from '@angular/core';
 
-import { StaffService, StaffModel } from '../services/staff.service';
-import { TransactionProductService, TransactionProductModel, TransactionModel, TransactionProductSignatureModel} from '../services/transaction-product.service';
+import { StaffService, StaffModel, StaffTransactionModel, StaffTransactionItemModel } from '../services/staff.service';
+import { ProductService, TransactionProductModel} from '../services/product.service';
 import { SignaturePadComponent } from '../Utilities/signature-pad/signature-pad.component';
 
 @Component({
-  selector: 'app-transaction-product',
-  templateUrl: './transaction-product.component.html',
-  styleUrls: ['./transaction-product.component.scss']
+  selector: 'app-staff-transaction',
+  templateUrl: './staff-transaction.component.html',
+  styleUrls: ['./staff-transaction.component.scss']
 })
-export class TransactionProductComponent implements AfterViewInit {
+export class StaffTransactionComponent implements AfterViewInit {
   // display flag
   isSearchSelected: boolean = false;
   isTypeAddable: boolean = false;
@@ -26,8 +26,8 @@ export class TransactionProductComponent implements AfterViewInit {
   selectedQuantity: number = 0;
   selectedPrice: number = 0;
 
-  transactionProduct: TransactionProductModel = new TransactionProductModel();
-  transactions: TransactionModel[] = [];
+  staffTransaction: StaffTransactionModel = new StaffTransactionModel();
+  staffTransactionItems: StaffTransactionItemModel[] = [];
 
   totalQuantity: number = 0;
   totalPrice: number = 0;
@@ -37,7 +37,7 @@ export class TransactionProductComponent implements AfterViewInit {
   // Child Views
   @ViewChild(SignaturePadComponent, {static:false}) signPadRef : SignaturePadComponent;
 
-  constructor( private staffService: StaffService, private transactionProductService : TransactionProductService) { }
+  constructor( private staffService: StaffService, private productService : ProductService) { }
 
   ngOnInit() {
     // Get the Staff list
@@ -72,13 +72,12 @@ export class TransactionProductComponent implements AfterViewInit {
   onSelectStaff(searchedStaff: StaffModel) {
     this.searchedStaffs = [searchedStaff];
     this.isSearchSelected = true;
-    this.transactionProduct.StaffName = searchedStaff.Name;
   }
 
   onTypeChange() {
     if( this.selectedVolume && this.selectedLength && this.selectedCurl && this.selectedHair) {
       this.isTypeAddable = true;
-      this.selectedPrice = Number.parseInt(this.transactionProductService.getPrice(this.selectedVolume, this.selectedLength, this.selectedCurl, this.selectedHair));
+      this.selectedPrice = Number.parseInt(this.productService.getPrice(this.selectedVolume, this.selectedLength, this.selectedCurl, this.selectedHair));
     }
     else {
       this.isTypeAddable = false;
@@ -90,7 +89,7 @@ export class TransactionProductComponent implements AfterViewInit {
     this.searchText = "";
     this.isSearchSelected = false;
     this.searchedStaffs = [];
-    this.transactions = [];
+    this.staffTransactionItems = [];
     this.isTypeAddable = false;
     this.selectedVolume = "";
     this.selectedLength = "";
@@ -102,21 +101,20 @@ export class TransactionProductComponent implements AfterViewInit {
 
   addTransaction() {
       if( this.selectedQuantity > 0) {
-        var transaction = new TransactionModel();
-        transaction.Volume = this.selectedVolume;
-        transaction.Length = this.selectedLength;
-        transaction.Curl = this.selectedCurl;
-        transaction.Hair = this.selectedHair;
-        transaction.Quantity = this.selectedQuantity;
-        transaction.Price = this.selectedPrice;
-        transaction.Total = this.selectedQuantity * this.selectedPrice;
+        var staffTransactionItem = new StaffTransactionItemModel();
+        staffTransactionItem.Volume = this.selectedVolume;
+        staffTransactionItem.Length = this.selectedLength;
+        staffTransactionItem.Hair = this.selectedHair;
+        staffTransactionItem.Quantity = this.selectedQuantity;
+        staffTransactionItem.Price = this.selectedPrice;
+        staffTransactionItem.Total = this.selectedQuantity * this.selectedPrice;
         
-        this.transactions.push(transaction);
+        this.staffTransactionItems.push(staffTransactionItem);
         this.totalPrice = 0;
         this.totalQuantity = 0;
-        for( var i=0; i < this.transactions.length; i++) {
-          this.totalQuantity += this.transactions[i].Quantity;
-          this.totalPrice += this.transactions[i].Total;
+        for( var i=0; i < this.staffTransactionItems.length; i++) {
+          this.totalQuantity += this.staffTransactionItems[i].Quantity;
+          this.totalPrice += this.staffTransactionItems[i].Total;
         }
       }
   }
