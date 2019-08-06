@@ -20,7 +20,6 @@ export class StaffTransactionComponent implements AfterViewInit {
   searchText: string = "";
   searchedStaffs: StaffModel[] = [];
   foundStaff: StaffModel = new StaffModel();
-
   selectedVolume: string = "";
   selectedLength: string = "";
   selectedHair: string = "";
@@ -71,6 +70,15 @@ export class StaffTransactionComponent implements AfterViewInit {
         staff.Name.toUpperCase().includes(this.searchText.toUpperCase()) ||
         staff.Phone.includes(this.searchText)
     );
+
+    // Clear Form
+    this.staffTransactionItems = [];
+    this.isTypeAddable = false;
+    this.selectedVolume = "";
+    this.selectedLength = "";
+    this.selectedHair = "";
+    this.selectedQuantity = 0;
+    this.selectedPrice = 0;
   }
 
   onSelectStaff(searchedStaff: StaffModel) {
