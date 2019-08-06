@@ -11,7 +11,7 @@
           [(ngModel)]="searchText" name="searchText" aria-label="Recipient's username"
           aria-describedby="SearchStaffHelp">
         <div class="input-group-append">
-          <button class="btn btn-outline-secondary border-0" type="button" id="SearchStaffHelp" (click)="onSearch()" onClick="$('#confirmModal').modal('show')">
+          <button class="btn btn-outline-secondary border-0" type="button" id="SearchStaffHelp" (click)="onSearch()">
             <i class="material-icons">search</i>
             <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
           </button>
@@ -99,7 +99,7 @@
               <td>{{transaction.Volume}}-{{transaction.Length}}-{{transaction.Curl}}-{{transaction.Hair}}</td>
               <td class="text_right">{{transaction.Quantity}}</td>
               <td class="text_right">{{transaction.Price}}</td>
-              <td class="text_right">{{transaction.Quantity*transaction.Price}}</td>
+              <td class="text_right">{{transaction.Quantity*transaction.Price|currency:'VND':'':'0.0-0'}}</td>
             </tr>
           </tbody>
           <tfoot class="bg-dark text-white">
@@ -108,7 +108,7 @@
               <td scope="col">{{staffTransactionItems.length}} món</td>
               <td class="text_right" scope="col">{{totalQuantity}}</td>
               <td class="text_right" scope="col"></td>
-              <td class="text_right" scope="col">{{totalPrice}}</td>
+              <td class="text_right" scope="col">{{totalPrice|currency:'VND':'':'0.0-0'}}</td>
             </tr>
           </tfoot>
         </table>
@@ -138,7 +138,7 @@
     <div class="modal-content">
       <div class="modal-header" (click)="onSubmit()">
         <h5 class="modal-title" id="confirmModalTitle">Tổng Tiền Công: 
-          <span class="text-danger">{{500000|currency:'VND':'code':'0.0-0'}}</span>
+          <span class="text-danger">{{totalPrice|currency:'VND':'':'0.0-0'}}</span>
         </h5>
       </div>
       <div class="modal-body">
@@ -147,7 +147,7 @@
               <label for="formCredit" class="col-3 col-form-label">Quỹ Tiền</label>
               <div class="col-9">
                 <div class="input-group">
-                  <input type="number" id="formCredit" class="form-control" aria-label=".000 VND" placeholder="0" readonly>
+                  <input type="text" id="formCredit" [value]="foundStaff.Credit/1000" class="form-control" aria-label=".000 VND" placeholder="0" readonly>
                   <div class="input-group-append">
                     <span class="input-group-text bg-dark text-white">.000 VND</span>
                   </div>
@@ -171,7 +171,7 @@
               <label for="formTotal" class="col-3 col-form-label">Tổng Cộng</label>
               <div class="col-9">
                 <div class="input-group">
-                  <input type="number" id="formTotal" [(ngModel)]="finalTotal" class="form-control text-danger" aria-label=".000 VND" placeholder="0" readonly>
+                  <input type="number" id="formTotal" [value]="finalTotal|currency:'VND':'':'0.0-0'" class="form-control text-danger" aria-label=".000 VND" placeholder="0" readonly>
                   <div class="input-group-append">
                     <span class="input-group-text bg-dark text-white">.000 VND</span>
                   </div>

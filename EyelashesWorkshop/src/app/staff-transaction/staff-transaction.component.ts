@@ -18,6 +18,7 @@ export class StaffTransactionComponent implements AfterViewInit {
   staffList: StaffModel[];
   searchText: string = "";
   searchedStaffs: StaffModel[] = [];
+  foundStaff: StaffModel = new StaffModel();
   
   selectedVolume: string = "";
   selectedLength: string = "";
@@ -68,11 +69,21 @@ export class StaffTransactionComponent implements AfterViewInit {
         staff.Name.toUpperCase().includes(this.searchText.toUpperCase()) || 
         staff.Phone.includes(this.searchText)
     );
+
+    // Clear Form
+    this.staffTransactionItems = [];
+    this.isTypeAddable = false;
+    this.selectedVolume = "";
+    this.selectedLength = "";
+    this.selectedHair = "";
+    this.selectedQuantity = 0;
+    this.selectedPrice = 0;
   }
 
   onSelectStaff(searchedStaff: StaffModel) {
     this.searchedStaffs = [searchedStaff];
     this.isSearchSelected = true;
+    this.foundStaff = searchedStaff;
   }
 
   onTypeChange() {
@@ -132,7 +143,7 @@ export class StaffTransactionComponent implements AfterViewInit {
 
   // Modal functions
   onAdjustChange() {
-    this.finalTotal = 500000 - this.adjustmentAmount*1000;
+    this.finalTotal = (this.totalPrice/1000 + this.foundStaff.Credit/1000) - this.adjustmentAmount;
   }
 
 

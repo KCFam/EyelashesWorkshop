@@ -10,18 +10,21 @@ import { stringify } from 'querystring';
   styleUrls: ['./staff.component.scss']
 })
 export class StaffComponent implements OnInit {
-  staff = new StaffModel();
+  staff : StaffModel;
 
-  validationClassPhone: string = "form-control";
-  validationClassName: string = "form-control";
+  validationClassPhone: string;
+  validationClassName: string;
 
-  validationMessagePhone: string = "";
-  validationMessageName: string = "";
+  validationMessagePhone: string;
+  validationMessageName: string;
 
   constructor(private staffService: StaffService, private router: Router) { 
+    this.resetForm();
   }
 
   ngOnInit() {
+    this.staff.Note = "";
+    this.staff.Address = "";
     this.staff.Credit = 0;
   }
 
@@ -55,8 +58,19 @@ export class StaffComponent implements OnInit {
       this.staff.Credit = this.staff.Credit*1000;
       this.staffService.addStaff(this.staff);
       console.log("Staff Name " + this.staff.Name + " added!");
-      this.router.navigate(['StaffTransaction']);
+      this.resetForm();
+      this.router.navigate(['Staff']);
       return;
     }
+  }
+
+  resetForm() {
+    this.staff = new StaffModel();
+
+    this.validationClassPhone = "form-control";
+    this.validationClassName = "form-control";
+
+    this.validationMessagePhone = "";
+    this.validationMessageName = "";
   }
 }
