@@ -55,7 +55,7 @@ export class StaffComponent implements OnInit {
       this.staff.Credit = this.staff.Credit*1000;
       this.staffService.addStaff(this.staff);
       console.log("Staff Name " + this.staff.Name + " added!");
-      this.router.navigate(['StaffTransaction']);
+      this.router.navigate(['']);
       return;
     }
   }

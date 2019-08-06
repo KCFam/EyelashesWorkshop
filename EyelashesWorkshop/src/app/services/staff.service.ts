@@ -24,12 +24,18 @@ export class StaffService {
   }
 
   updateStaff(staff: StaffModel) {
+    const id = staff.ID;
     delete staff.ID;
-    this.db.doc('Staffs/' + staff.ID).update(staff);
+    this.db.doc('Staffs/' + id).update(staff);
   }
 
   deleteStaff( staffID: string) {
     this.db.doc('Staffs/' + staffID).delete();
+  }
+
+  addStaffTransaction(staffID: string, staffTransaction: StaffTransactionModel) {
+    this.db.collection('Staffs/'+staffID+"/Transactions").doc(staffTransaction.ID).set(JSON.parse(JSON.stringify(staffTransaction)));
+    console.log("New Staff Transaction added!");
   }
 }
 
@@ -41,12 +47,11 @@ export class StaffModel {
   Note: string;
   Credit: number;
   Transactions: StaffTransactionModel[];
-
 }
 
 export class StaffTransactionModel {
-  ID: string;
-  Date: string;
+  ID: string;     // Timestamp
+  DateTime: string;
   TransactionItems: StaffTransactionItemModel[];
   Quantity: number;
   Total: number;

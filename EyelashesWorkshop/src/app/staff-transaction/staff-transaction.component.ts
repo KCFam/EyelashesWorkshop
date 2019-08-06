@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild,ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { StaffService, StaffModel, StaffTransactionModel, StaffTransactionItemModel } from '../services/staff.service';
-import { ProductService, TransactionProductModel} from '../services/product.service';
+import { ProductService, TransactionProductModel } from '../services/product.service';
 import { SignaturePadComponent } from '../Utilities/signature-pad/signature-pad.component';
 
 @Component({
@@ -18,7 +19,8 @@ export class StaffTransactionComponent implements AfterViewInit {
   staffList: StaffModel[];
   searchText: string = "";
   searchedStaffs: StaffModel[] = [];
-  
+  foundStaff: StaffModel = new StaffModel();
+
   selectedVolume: string = "";
   selectedLength: string = "";
   selectedHair: string = "";
@@ -36,20 +38,21 @@ export class StaffTransactionComponent implements AfterViewInit {
   finalTotal: number = 0;
 
   // Child Views
-  @ViewChild(SignaturePadComponent, {static:false}) signPadRef : SignaturePadComponent;
+  @ViewChild(SignaturePadComponent, { static: false }) signPadRef: SignaturePadComponent;
 
-  constructor( private staffService: StaffService, private productService : ProductService) { }
+  constructor(private staffService: StaffService, private productService: ProductService, private router: Router) {
+  }
 
   ngOnInit() {
     // Get the Staff list
     this.staffService.getStaffs().subscribe(data => {
       this.staffList = data
-      .map(e => {
-        return {
-          ID: e.payload.doc.id,
-          ...e.payload.doc.data()
-        } as StaffModel;
-      })
+        .map(e => {
+          return {
+            ID: e.payload.doc.id,
+            ...e.payload.doc.data()
+          } as StaffModel;
+        })
     });
   }
 
@@ -57,15 +60,15 @@ export class StaffTransactionComponent implements AfterViewInit {
   }
 
   onSearch() {
-    if(this.searchText == "") {
+    if (this.searchText == "") {
       this.formClear();
       return;
     }
 
     // Get the Staff list
     this.searchedStaffs = this.staffList.filter(
-      staff => 
-        staff.Name.toUpperCase().includes(this.searchText.toUpperCase()) || 
+      staff =>
+        staff.Name.toUpperCase().includes(this.searchText.toUpperCase()) ||
         staff.Phone.includes(this.searchText)
     );
   }
@@ -73,10 +76,11 @@ export class StaffTransactionComponent implements AfterViewInit {
   onSelectStaff(searchedStaff: StaffModel) {
     this.searchedStaffs = [searchedStaff];
     this.isSearchSelected = true;
+    this.foundStaff = searchedStaff;
   }
 
   onTypeChange() {
-    if( this.selectedVolume && this.selectedLength && this.selectedHair) {
+    if (this.selectedVolume && this.selectedLength && this.selectedHair) {
       this.isTypeAddable = true;
       this.selectedPrice = Number.parseInt(this.productService.getStaffTransactionPrice(this.selectedVolume, this.selectedLength, this.selectedHair));
     }
@@ -100,44 +104,65 @@ export class StaffTransactionComponent implements AfterViewInit {
   }
 
   addTransaction() {
-      if( this.selectedQuantity > 0) {
-        var staffTransactionItem = new StaffTransactionItemModel();
-        staffTransactionItem.Volume = this.selectedVolume;
-        staffTransactionItem.Length = this.selectedLength;
-        staffTransactionItem.Hair = this.selectedHair;
-        staffTransactionItem.Quantity = this.selectedQuantity;
-        staffTransactionItem.Price = this.selectedPrice;
-        staffTransactionItem.Total = this.selectedQuantity * this.selectedPrice;
-        this.staffTransactionItems.push(staffTransactionItem);
+    if (this.selectedQuantity > 0) {
+      var staffTransactionItem = new StaffTransactionItemModel();
+      staffTransactionItem.Volume = this.selectedVolume;
+      staffTransactionItem.Length = this.selectedLength;
+      staffTransactionItem.Hair = this.selectedHair;
+      staffTransactionItem.Quantity = this.selectedQuantity;
+      staffTransactionItem.Price = this.selectedPrice;
+      staffTransactionItem.Total = this.selectedQuantity * this.selectedPrice;
+      this.staffTransactionItems.push(staffTransactionItem);
 
-        this.recalculateTotal();
-      }
+      this.recalculateTotal();
+    }
   }
-  removeTransaction(transaction : StaffTransactionItemModel) {
-    const index = this.staffTransactionItems.indexOf(transaction,0);
+  removeTransaction(transaction: StaffTransactionItemModel) {
+    const index = this.staffTransactionItems.indexOf(transaction, 0);
     if (index > -1) {
-      this.staffTransactionItems.splice(index,1);
+      this.staffTransactionItems.splice(index, 1);
 
       this.recalculateTotal();
     }
   }
   recalculateTotal() {
     this.totalPrice = 0;
-        this.totalQuantity = 0;
-        for( var i=0; i < this.staffTransactionItems.length; i++) {
-          this.totalQuantity += this.staffTransactionItems[i].Quantity;
-          this.totalPrice += this.staffTransactionItems[i].Total;
-        }
+    this.totalQuantity = 0;
+    for (var i = 0; i < this.staffTransactionItems.length; i++) {
+      this.totalQuantity += this.staffTransactionItems[i].Quantity;
+      this.totalPrice += this.staffTransactionItems[i].Total;
+    }
+
+    this.adjustmentAmount = (this.totalPrice + this.foundStaff.Credit)/1000;
   }
 
   // Modal functions
   onAdjustChange() {
-    this.finalTotal = 500000 - this.adjustmentAmount*1000;
+    this.finalTotal = (this.totalPrice + this.foundStaff.Credit) - this.adjustmentAmount * 1000;
   }
 
 
   onSubmit() {
-    console.log(this.signPadRef.signaturePad.toDataURL());
+    //console.log(this.signPadRef.signaturePad.toDataURL());
+
+    // ******* Store Transaction data to Staff Table ********
+    // Refine Transactions Data
+    this.staffTransaction.ID = new Date(Date.now()).toISOString();
+    this.staffTransaction.DateTime = this.staffTransaction.ID;
+    this.staffTransaction.Quantity = this.totalQuantity;
+    this.staffTransaction.Signature = this.signPadRef.signaturePad.toDataURL();
+    this.staffTransaction.Total = this.totalPrice;
+    this.staffTransaction.TransactionItems = this.staffTransactionItems;
+
+    // Add Transaction to Staff table
+    this.staffService.addStaffTransaction(this.foundStaff.ID, this.staffTransaction);
+
+    // ******* Update Staff data to Staff Table ********
+    this.foundStaff.Credit = this.finalTotal;
+    this.staffService.updateStaff(this.foundStaff);
+
+    this.router.navigate(['']);
+
     return;
   }
 
