@@ -1,49 +1,31 @@
 <div class="container">
     <h5 class="pb-2 mb-2 font-italic border-bottom">
-      Thống kê
+      Thống Kê Hàng Cấy
     </h5>
-    <table class="table">
+    <table class="table col-12">
         <thead class="thead-dark">
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Loại Fan</th>
-            <th scope="col">Dài</th>
-            <th scope="col">Cong</th>
-            <th scope="col">Tóc</th>
-            <th scope="col">Tổng</th>
+            <th scope="col">Loại</th>
+            <th class="text-right" scope="col">S.Lượng</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let transactionDashboard of transactionDashboards; let i = index">
+          <tr *ngFor="let product of productMaterial.Products| keyvalue; let i = index">
             <th scope="row">{{i+1}}</th>
-            <td>{{transactionDashboard.Volume}}</td>
-            <td>{{transactionDashboard.Length}}</td>
-            <td>{{transactionDashboard.Curl}}</td>
-            <td>{{transactionDashboard.Hair}}</td>
-            <td>{{transactionDashboard.Quantity}}</td>
+            <td>{{product.key}}</td>
+            <td [ngClass]="{
+              'text-primary':product.value<500,
+              'text-danger':product.value<100,
+              'text-right':true}">{{product.value | number}}</td>
           </tr>
         </tbody>
         <tfoot class="bg-dark text-white">
             <tr>
               <td scope="col">Total</td>
-              <td scope="col"></td>
-              <td class="text_right" scope="col">Quantity</td>
-              <td class="text_right" scope="col"></td>
-              <td class="text_right" scope="col"></td>
-              <td class="text_right" scope="col"></td>
+              <td scope="col">Quantity</td>
+              <td class="text-right" scope="col">{{totalQuantity | number}}</td>
             </tr>
           </tfoot>
       </table>
-
-      <div>
-        <div style="display: block">
-          <canvas baseChart
-                  [datasets]="barChartData"
-                  [labels]="barChartLabels"
-                  [options]="barChartOptions"
-                  [legend]="barChartLegend"
-                  [chartType]="barChartType">
-          </canvas>
-        </div>
-      </div>
   </div>

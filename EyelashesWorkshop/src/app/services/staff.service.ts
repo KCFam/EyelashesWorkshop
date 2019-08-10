@@ -8,7 +8,6 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class StaffService {
-  staff: StaffModel;
 
   constructor( private db: AngularFirestore ) { 
     
@@ -26,7 +25,7 @@ export class StaffService {
   updateStaff(staff: StaffModel) {
     const id = staff.ID;
     delete staff.ID;
-    this.db.doc('Staffs/' + id).update(staff);
+    this.db.doc('Staffs/' + id).update({'Credit':staff.Credit});
   }
 
   deleteStaff( staffID: string) {

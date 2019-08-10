@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { StaffService, StaffModel, StaffTransactionModel, StaffTransactionItemModel } from '../services/staff.service';
 import { ProductService, TransactionProductModel } from '../services/product.service';
+import { ProductMaterialsService, ProductMaterialModel } from '../services/product-materials.service';
 import { SignaturePadComponent } from '../Utilities/signature-pad/signature-pad.component';
 
 @Component({
@@ -39,19 +40,23 @@ export class StaffTransactionComponent implements AfterViewInit {
   // Child Views
   @ViewChild(SignaturePadComponent, { static: false }) signPadRef: SignaturePadComponent;
 
-  constructor(private staffService: StaffService, private productService: ProductService, private router: Router) {
+  constructor(private staffService: StaffService, 
+    private productService: ProductService, 
+    private productMaterialService: ProductMaterialsService,
+    private router: Router) {
   }
 
   ngOnInit() {
     // Get the Staff list
-    this.staffService.getStaffs().subscribe(data => {
+    var staffs = this.staffService.getStaffs().subscribe(data => {
       this.staffList = data
         .map(e => {
           return {
             ID: e.payload.doc.id,
             ...e.payload.doc.data()
           } as StaffModel;
-        })
+        });
+        staffs.unsubscribe();
     });
   }
 
@@ -168,6 +173,22 @@ export class StaffTransactionComponent implements AfterViewInit {
     // ******* Update Staff data to Staff Table ********
     this.foundStaff.Credit = this.finalTotal;
     this.staffService.updateStaff(this.foundStaff);
+
+    // ******* Update Product data to to ProductMaterials table ******** 
+    // Create the product dictionary
+    var productMaterial = new ProductMaterialModel();
+    for( var transaction of this.staffTransactionItems) {
+      var productType = transaction.Volume+"-"+transaction.Length+"-"+transaction.Hair;
+      if(productMaterial.hasOwnProperty(productType)) { // Has same Product Type, just add
+        productMaterial[productType] += transaction.Quantity;
+      }
+      else {  // Add new product type
+        productMaterial[productType] = transaction.Quantity;
+      }
+    }
+
+    // Update Product data to Product Material table
+    this.productMaterialService.addProductMaterialsToCurrent(productMaterial);
 
     this.router.navigate(['']);
 
