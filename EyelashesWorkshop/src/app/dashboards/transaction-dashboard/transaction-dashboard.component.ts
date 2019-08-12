@@ -33,7 +33,7 @@ export class TransactionDashboardComponent implements OnInit {
     private productMaterialService: ProductMaterialsService) { 
       // Get the Product Material
       this.productMaterialService.getProductMaterial().subscribe(data => {
-        this.productMaterial = data.payload.data();
+        this.productMaterial = data.payload.data() as ProductMaterialModel;
         var products = this.productMaterial['Products'];
         this.totalQuantity = 0;
         Object.keys(this.productMaterial).sort();

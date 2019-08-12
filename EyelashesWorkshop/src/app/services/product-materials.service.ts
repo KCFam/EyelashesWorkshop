@@ -32,7 +32,7 @@ export class ProductMaterialsService {
     // Get ProductMaterials table
     var getData = this.getProductMaterial().subscribe(data => {
       
-          var productMaterial = data.payload.data();
+          var productMaterial = data.payload.data() as ProductMaterialModel;
 
           // First time run? - No Date 
           if( !productMaterial.hasOwnProperty('Date')) {
@@ -102,5 +102,7 @@ export class ProductMaterialsService {
 
 export class ProductMaterialModel {
   // Flat object design
+  Date: string;
+  Products: Object;
 }
 

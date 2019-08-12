@@ -41,7 +41,7 @@ export class StaffTransactionComponent implements AfterViewInit {
   @ViewChild(SignaturePadComponent, { static: false }) signPadRef: SignaturePadComponent;
 
   constructor(private staffService: StaffService, 
-    private productService: ProductService, 
+    public productService: ProductService, 
     private productMaterialService: ProductMaterialsService,
     private router: Router) {
   }

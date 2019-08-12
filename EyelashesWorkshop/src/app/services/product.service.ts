@@ -13,20 +13,24 @@ export class ProductService {
   getStaffTransactionPrice(volume:string, length:string, hair: string) {
     switch(volume) {
       case "3D":
-        return "900";
+        return "1200";
       case "4D":
-        return "1000";
+        return "1400";
+      case "5D":
+        return "1600";
+      case "6D":
+        return "1900";
       default:
-        return "1100";
+        return "1200";
     }
   }
 
   getVolumeOptions() : string[] {
-    return ["3D","4D","5D"];
+    return ["3D","4D","5D","6D"];
   }
 
   getLengthOptions() : string[] {
-    return ["9mm","10mm","11mm","12mm","13mm","14mm","15mm","16mm","17mm"];
+    return ["9mm","10mm","11mm","12mm","13mm","14mm","15mm","16mm"];
   }
 
   getCurlOptions() : string[] {
@@ -34,7 +38,7 @@ export class ProductService {
   }
 
   getHairOptions() : string[] {
-    return ["0.05","0.07","0.85","0.10"];
+    return ["0.05","0.07","0.10"];
   }
 }
 
