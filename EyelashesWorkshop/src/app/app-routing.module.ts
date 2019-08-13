@@ -13,6 +13,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { StaffTransactionComponent } from './staff-transaction/staff-transaction.component';
 import { StaffComponent } from './staffs/staff.component';
 import { TransactionDashboardComponent } from './dashboards/transaction-dashboard/transaction-dashboard.component';
+import { StaffDataComponent } from './staff-data/staff-data.component';
 
 const routes: Routes = [
 
@@ -26,7 +27,7 @@ const routes: Routes = [
       { path: 'StaffTransaction', component: StaffTransactionComponent },
       { path: 'TransactionDashboard', component: TransactionDashboardComponent },
       { path: 'Staff', component: StaffComponent },
-      { path: 'Staff/:id', component: StaffComponent }
+      { path: 'ViewStaff', component: StaffDataComponent}
     ]
   },
 

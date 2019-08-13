@@ -22,10 +22,15 @@ export class StaffService {
     console.log("New Staff added");
   }
 
-  updateStaff(staff: StaffModel) {
+  updateStaffCredit(staff: StaffModel) {
     const id = staff.ID;
-    delete staff.ID;
     this.db.doc('Staffs/' + id).update({'Credit':staff.Credit});
+  }
+
+  updateStaffProductType(staff: StaffModel) {
+    const id = staff.ID;
+    this.db.doc('Staffs/' + id).set({'Volume':staff.Volume, 'Length':staff.Length, 'Hair':staff.Hair}, {merge: true});
+    console.log("Staff Product Type updated!");
   }
 
   deleteStaff( staffID: string) {
@@ -45,6 +50,9 @@ export class StaffModel {
   Address: string;
   Note: string;
   Credit: number;
+  Volume: string;
+  Length: string;
+  Hair: string;
   Transactions: StaffTransactionModel[];
 }
 

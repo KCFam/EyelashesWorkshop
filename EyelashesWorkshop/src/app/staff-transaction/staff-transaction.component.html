@@ -22,7 +22,7 @@
       <div class=" col-md-6 SearchStaffResult">
         <div class="row">
           <div class="col-lg-6" *ngFor="let searchedStaff of searchedStaffs" (click)="onSelectStaff(searchedStaff)">
-            <div [ngClass]="isSearchSelected ? 'bg-dark text-white card StaffCard' : 'card StaffCard'">
+            <div [ngClass]="isSearchSelected ? 'bg-dark text-white card StaffCard' : 'bg-light text-dark card StaffCard'">
               <div class="card-body">
                 <label class="col col-form-label">
                   <i class="material-icons">face</i>
@@ -156,7 +156,7 @@
             </div>
             <!-- Adjust -->
           <div class="input-group col-12 pb-2 modal_payment">
-              <label for="formAdjust" class="col-3 col-form-label">Chi/Thu</label>
+              <label for="formAdjust" class="col-3 col-form-label">{{adjustmentAmount >= 0 ? 'Thu':'Chi'}}</label>
               <div class="col-9">
                 <div class="input-group">
                   <input type="number" id="formAdjust" [(ngModel)]="adjustmentAmount" class="form-control" aria-label=".000 VND" placeholder="0" onClick="this.select()" (keyup)="onAdjustChange()">

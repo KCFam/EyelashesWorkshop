@@ -76,6 +76,9 @@ export class StaffTransactionComponent implements AfterViewInit {
         staff.Phone.includes(this.searchText)
     );
 
+    // dirty
+    this.isSearchSelected = false;
+
     // Clear Form
     this.staffTransactionItems = [];
     this.isTypeAddable = false;
@@ -172,7 +175,7 @@ export class StaffTransactionComponent implements AfterViewInit {
 
     // ******* Update Staff data to Staff Table ********
     this.foundStaff.Credit = this.finalTotal;
-    this.staffService.updateStaff(this.foundStaff);
+    this.staffService.updateStaffCredit(this.foundStaff);
 
     // ******* Update Product data to to ProductMaterials table ******** 
     // Create the product dictionary

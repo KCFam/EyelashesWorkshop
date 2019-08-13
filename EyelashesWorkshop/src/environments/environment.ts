@@ -5,13 +5,13 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyDEdk0llYzPikI_VDv1UXFYWkB0wXe5xoc",
-    authDomain: "eyelashes-manager.firebaseapp.com",
-    databaseURL: "https://eyelashes-manager.firebaseio.com",
-    projectId: "eyelashes-manager",
+    apiKey: "AIzaSyCVqYTm_S4sykMI3yXMY36hrc0DU-kOlsI",
+    authDomain: "pneyelashes-3556.firebaseapp.com",
+    databaseURL: "https://pneyelashes-3556.firebaseio.com",
+    projectId: "pneyelashes-3556",
     storageBucket: "",
-    messagingSenderId: "597892237375",
-    appId: "1:597892237375:web:7eb5322369a09a3a"
+    messagingSenderId: "392544247968",
+    appId: "1:392544247968:web:0842575a20fbdc51"
   }
 };
 
