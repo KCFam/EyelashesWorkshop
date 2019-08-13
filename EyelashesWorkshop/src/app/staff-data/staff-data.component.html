@@ -62,7 +62,6 @@
 
     <!-- Staff Custom View -->
     <!-- Item Add -->
-    <!-- <div class="form-row border-bottom" [hidden]="!isSearchSelected"> -->
     <div class="form-row border-bottom" [hidden]="!isSearchSelected">
       <!-- Staff Product Type -- EDITABLE -->
       <div class="input-group col-12" *ngIf="isProductTypeEditable">
@@ -129,6 +128,7 @@
           </button>
         </div>
       </div>
+
       <!-- Staff Product Type -- NOT EDITABLE -->
       <div class="input-group col-12" *ngIf="!isProductTypeEditable">
         <label for="formStaffProductType" class="col-sm-2 col-form-label"
@@ -181,6 +181,7 @@
           </div>
         </div>
       </div>
+
       <!-- Staff Address -->
       <div class="input-group col-md-6 formStaffAddress pb-2">
         <label for="formStaffAddress" class="col-sm-2 col-form-label"
@@ -197,6 +198,7 @@
           />
         </div>
       </div>
+
       <!-- Staff Notes -->
       <div class="input-group col-md-6 formStaffNote pb-2">
         <label for="formStaffNote" class="col-sm-2 col-form-label"
