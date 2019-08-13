@@ -32,6 +32,7 @@ import { SignaturePadComponent } from './Utilities/signature-pad/signature-pad.c
 import { StaffComponent } from './staffs/staff.component';
 import { TransactionDashboardComponent } from './dashboards/transaction-dashboard/transaction-dashboard.component';
 import { StaffDataComponent } from './staff-data/staff-data.component';
+import { ProductTransactionComponent } from './product-transaction/product-transaction.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { StaffDataComponent } from './staff-data/staff-data.component';
     StaffComponent,
     TransactionDashboardComponent,
     StaffTransactionComponent,
-    StaffDataComponent
+    StaffDataComponent,
+    ProductTransactionComponent
   ],
   imports: [
     BrowserModule,
