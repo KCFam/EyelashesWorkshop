@@ -2,9 +2,16 @@
 <div class="nav_large_screen">
   <nav class="navbar navbar-expand-md mb-5"></nav>
   <nav class="navbar navbar-expand-md navbar-dark nav_menu_color fixed-top">
-    <a class="navbar-brand" href="#">{{appService.shopName}}</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-      aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" href="#">{{ appService.shopName }}</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarsExampleDefault"
+      aria-controls="navbarsExampleDefault"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
       <i class="material-icons">menu</i>
     </button>
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
@@ -13,15 +20,24 @@
           <a class="nav-link" href="AddStaffTransaction">Thêm Hàng Giao</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="TransactionDashboardComponent">Thống Kê Hàng Giao</a>
+          <a class="nav-link" href="TransactionDashboardComponent"
+            >Thống Kê Hàng Giao</a
+          >
         </li>
         <li class="nav-item">
           <a class="nav-link" href="AddStaff">Thêm Thợ</a>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <input
+          class="form-control mr-sm-2"
+          type="text"
+          placeholder="Search"
+          aria-label="Search"
+        />
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+          Search
+        </button>
       </form>
     </div>
   </nav>
@@ -29,26 +45,80 @@
 
 <!-- Menu bar for small display -->
 <div class="nav_small_screen dropup">
-  <button type="button" class="btn btn-dark btn_circle_lg nav_menu_button dropdown-toggle" type="button"
-   data-toggle="modal" data-target="#navModal" aria-haspopup="true" aria-expanded="false">
+  <button
+    type="button"
+    class="btn btn-dark btn_circle_lg nav_menu_button dropdown-toggle"
+    type="button"
+    data-toggle="modal"
+    data-target="#navModal"
+    aria-haspopup="true"
+    aria-expanded="false"
+  >
     <i class="material-icons">menu</i>
   </button>
   <!-- Modal -->
-<div class="modal fade" id="navModal" tabindex="-1" role="dialog" aria-labelledby="navModalTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content bg-transparent">
-      <div class="modal-body">
-        <div class="btn-group-vertical col-12">
-            <button type="button" class="btn btn-dark btn-block btn-large" routerLink="/TransactionDashboard" onclick="$('#navModal').modal('hide')">Thống Kê</button>
-            <button type="button" class="btn btn-dark btn-block btn-large" routerLink="/StaffTransaction" onclick="$('#navModal').modal('hide')">Thêm Hàng Giao</button>
-            <button type="button" class="btn btn-dark btn-block btn-large" routerLink="/Staff" onclick="$('#navModal').modal('hide')">Thêm Thợ</button>
-            <button type="button" class="btn btn-dark btn-block btn-large" routerLink="/ViewStaff" onclick="$('#navModal').modal('hide')">Thông Tin Thợ</button>
-            <button type="button" class="btn btn-dark btn-block btn-large" data-dismiss="modal"><i class="material-icons">close</i></button>
+  <div
+    class="modal fade"
+    id="navModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="navModalTitle"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content bg-transparent">
+        <div class="modal-body">
+          <div class="btn-group-vertical col-12">
+            <button
+              type="button"
+              class="btn btn-dark btn-block btn-large"
+              routerLink="/TransactionDashboard"
+              onclick="$('#navModal').modal('hide')"
+            >
+              Thống Kê
+            </button>
+            <button
+              type="button"
+              class="btn btn-dark btn-block btn-large"
+              routerLink="/StaffTransaction"
+              onclick="$('#navModal').modal('hide')"
+            >
+              Thêm Hàng Giao
+            </button>
+            <button
+              type="button"
+              class="btn btn-dark btn-block btn-large"
+              routerLink="/ProductTransaction"
+              onclick="$('#navModal').modal('hide')"
+            >
+              Thêm Thành Phẩm
+            </button>
+            <button
+              type="button"
+              class="btn btn-dark btn-block btn-large"
+              routerLink="/Staff"
+              onclick="$('#navModal').modal('hide')"
+            >
+              Thêm Thợ
+            </button>
+            <button
+              type="button"
+              class="btn btn-dark btn-block btn-large"
+              routerLink="/ViewStaff"
+              onclick="$('#navModal').modal('hide')"
+            >
+              Thông Tin Thợ
+            </button>
+            <button
+              type="button"
+              class="btn btn-dark btn-block btn-large"
+              data-dismiss="modal"
+            >
+              <i class="material-icons">close</i>
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-</div>
-
-

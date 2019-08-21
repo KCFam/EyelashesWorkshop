@@ -1,1 +1,185 @@
-<p>product-transaction works!</p>
+<div class="container">
+  <h5 class="pb-2 mb-2 font-italic border-bottom">
+    Thêm Thành Phẩm
+  </h5>
+  <form>
+    <!-- Item Add -->
+    <div class="form-row">
+      <!-- Selection Menu -->
+      <div class="form-group col-3">
+        <select
+          class="form-control bg-dark text-white"
+          id="formLashVolume"
+          name="volumeSelection"
+          (change)="onTypeChange()"
+          [(ngModel)]="selectedFan"
+        >
+          <option value="" selected disabled hidden>Loại Fan</option>
+          <option
+            *ngFor="let item of productService.getVolumeOptions()"
+            [value]="item"
+            >{{ item }}</option
+          >
+        </select>
+      </div>
+      <div class="form-group col-3">
+        <select
+          class="form-control bg-dark text-white"
+          id="formLashLength"
+          name="lengthSelection"
+          (change)="onTypeChange()"
+          [(ngModel)]="selectedLength"
+        >
+          <option value="" selected disabled hidden>Dài</option>
+          <option
+            *ngFor="let item of productService.getLengthOptions()"
+            [value]="item"
+            >{{ item }}</option
+          >
+        </select>
+      </div>
+      <div class="form-group col-3">
+        <select
+          class="form-control bg-dark text-white"
+          id="formLashCurl"
+          name="curlSelection"
+          (change)="onTypeChange()"
+          [(ngModel)]="selectedCurl"
+        >
+          <option value="" selected disabled hidden>Cong</option>
+          <option
+            *ngFor="let item of productService.getCurlOptions()"
+            [value]="item"
+            >{{ item }}</option
+          >
+        </select>
+      </div>
+      <div class="form-group col-3">
+        <select
+          class="form-control bg-dark text-white"
+          id="formLashHair"
+          name="hairSelection"
+          (change)="onTypeChange()"
+          [(ngModel)]="selectedHair"
+        >
+          <option value="" selected disabled hidden>Tóc</option>
+          <option
+            *ngFor="let item of productService.getHairOptions()"
+            [value]="item"
+            >{{ item }}</option
+          >
+        </select>
+      </div>
+    </div>
+
+    <!-- Product Type -->
+    <div class="form-row border-bottom">
+      <!-- Product Selection -->
+      <div class="form-group col-6">
+        <select
+          class="form-control bg-dark text-white"
+          id="formProductType"
+          name="productTypeSelection"
+          (change)="onTypeChange()"
+          [(ngModel)]="selectedProductionType"
+        >
+          <option value="" selected disabled hidden>Thành Phẩm</option>
+          <option
+            *ngFor="let item of productService.getProductTypes()"
+            [value]="item"
+            >{{ item }}</option
+          >
+        </select>
+      </div>
+      <!-- Product Quantity -->
+      <div
+        class="form-group input-group col-4 formQuantity"
+        [hidden]="!isShowAddType"
+      >
+        <input
+          type="number"
+          aria-label="Quantity"
+          class="form-control"
+          name="quantity"
+          onClick="this.select()"
+          [(ngModel)]="selectedQuantity"
+        />
+      </div>
+
+      <!-- Product Add Button -->
+      <div
+        class="form-group input-group col-2 formQuantity"
+        [hidden]="!isShowAddType"
+      >
+        <button
+          type="button"
+          class="btn btn-success"
+          (click)="addTransaction()"
+        >
+          <i class="material-icons">add_circle_outline</i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Display Summary Table -->
+    <div
+      class="input-group pt-3 col-12 formItemsTable"
+      [hidden]="productTransactions.length <= 0"
+    >
+      <table class="table table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Loại</th>
+            <th class="text_right" scope="col">Số Lượng</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let transaction of productTransactions; let i = index">
+            <th scope="row" (click)="removeTransaction(transaction)">
+              {{ i + 1 }}
+            </th>
+            <td>
+              {{ transaction.Volume }}-{{ transaction.Length }}-{{
+                transaction.Curl
+              }}-{{ transaction.Hair }}-{{ transaction.Type }}
+            </td>
+            <td class="text_right">{{ transaction.Quantity }}</td>
+          </tr>
+        </tbody>
+        <tfoot class="bg-dark text-white">
+          <tr>
+            <td scope="col">Tổng</td>
+            <td scope="col">{{ productTransactions.length }} món</td>
+            <td class="text_right" scope="col">{{ totalQuantity }}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <!-- Action buttons-->
+    <div class="form-row">
+      <!-- Action Buttons -->
+      <div
+        class="col-md-6 pt-3 text-right"
+        [hidden]="productTransactions.length <= 0"
+      >
+        <button
+          type="button"
+          class="btn btn-outline-success pull-right mr-1"
+          (click)="formClear()"
+        >
+          Xóa
+        </button>
+        <button
+          type="button"
+          class="btn btn-success pull-right ml-1"
+          onClick="$('#confirmModal').modal('show')"
+          (click)="onSubmit()"
+        >
+          Lưu
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
