@@ -1,12 +1,16 @@
 import { Injectable } from "@angular/core";
 
 import { AngularFirestore } from "@angular/fire/firestore";
+import { ProductService, TransactionProductModel } from "./product.service";
 
 @Injectable({
   providedIn: "root"
 })
 export class ProductMaterialsService {
-  constructor(private db: AngularFirestore) {}
+  constructor(
+    private db: AngularFirestore,
+    private productService: ProductService
+  ) {}
 
   getProductMaterial() {
     return this.db.doc("Products/ProductMaterial").snapshotChanges();
@@ -29,12 +33,34 @@ export class ProductMaterialsService {
     console.log("New Product Material added");
   }
 
+  //! TODO:
+  substractUsedMaterial(productTransactions: TransactionProductModel[]) {
+    // Get ProductMaterials table
+    var getData = this.getProductMaterial().subscribe(
+      data => {
+        var productMaterial = data.payload.data() as ProductMaterialModel;
+        getData.unsubscribe();
+
+        for (var product of productTransactions) {
+          var numberUsedLines = this.productService.getNumberProductLinesConsume(
+            product.Type
+          );
+        }
+      },
+      error => console.error(error),
+      () => {
+        // Success
+      }
+    );
+  }
+
   // Add list of new product Material Products to Table
   addProductMaterialsToCurrent(productMaterialProducts: ProductMaterialModel) {
     // Get ProductMaterials table
     var getData = this.getProductMaterial().subscribe(
       data => {
         var productMaterial = data.payload.data() as ProductMaterialModel;
+        getData.unsubscribe();
 
         // First time run? - No Date
         if (!productMaterial.hasOwnProperty("Date")) {
@@ -59,13 +85,15 @@ export class ProductMaterialsService {
           // Copy the current data to history
           if (productMaterial.hasOwnProperty("ProductHistory")) {
             // has history data
-            productMaterial["ProductHistory"][currentProductDate] =
-              productMaterial["Products"];
           } else {
             // new history data
             productMaterial["ProductHistory"] = new Object();
-            productMaterial["ProductHistory"][currentProductDate] =
-              productMaterial["Products"];
+          }
+
+          // swallow Copy Products data to ProductHistory
+          for (var key in productMaterial["Products"]) {
+            productMaterial["ProductHistory"][currentProductDate][key] =
+              productMaterial["Products"][key];
           }
 
           // Update the current Date
@@ -84,7 +112,7 @@ export class ProductMaterialsService {
         // Call update transaction
         this.setProductMaterial(productMaterial);
         console.log("Product Material updated!");
-        getData.unsubscribe();
+
         return;
       },
       error => console.error(error),

@@ -110,6 +110,12 @@ export class ProductTransactionComponent implements OnInit {
     console.log("Inside" + this.productTransactions);
     this.productService.addProductToCurrent(this.productTransactions);
 
+    // Store the transaction inside the ProductFinal Table
+    this.productService.addProductTransaction(this.productTransactions);
+
+    // !TODO:
+    // Substract from Material
+
     this.router.navigate([""]);
 
     return;

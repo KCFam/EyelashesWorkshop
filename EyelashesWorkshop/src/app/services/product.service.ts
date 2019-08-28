@@ -18,11 +18,34 @@ export class ProductService {
       .set(Object.assign({}, product), { merge: true });
   }
 
+  addProductTransaction(productTransactions: TransactionProductModel[]) {
+    // Create the Data for the transaction
+    var JSONstring: Object = new Object();
+    for (var productTransaction of productTransactions) {
+      var key = this.getProductionNameFull(
+        productTransaction.Volume,
+        productTransaction.Length,
+        productTransaction.Curl,
+        productTransaction.Hair,
+        productTransaction.Type
+      );
+      JSONstring[key] = productTransaction.Quantity;
+    }
+
+    // Add data to datable
+    this.db
+      .collection("Products/ProductFinal/Transactions")
+      .doc(new Date(Date.now()).toISOString())
+      .set(JSON.parse(JSON.stringify(JSONstring)));
+    console.log("New Product Transaction added!");
+  }
+
   addProductToCurrent(productTransactions: TransactionProductModel[]) {
     // Get Product table
     var getData = this.getProductMaterial().subscribe(
       data => {
         var product = data.payload.data() as ProductModel;
+        getData.unsubscribe();
 
         // First time run? - No Date
         if (!product.hasOwnProperty("Date")) {
@@ -45,11 +68,15 @@ export class ProductService {
           // Copy the current data to history
           if (product.hasOwnProperty("ProductHistory")) {
             // has history data
-            product["ProductHistory"][currentProductDate] = product["Products"];
           } else {
             // new history data
             product["ProductHistory"] = new Object();
-            product["ProductHistory"][currentProductDate] = product["Products"];
+          }
+
+          // swallow Copy Products data to ProductHistory
+          for (var key in product["Products"]) {
+            product["ProductHistory"][currentProductDate][key] =
+              product["Products"][key];
           }
 
           // Update the current Date
@@ -58,16 +85,13 @@ export class ProductService {
 
         // Update new data to current Product Material
         for (var productTransaction of productTransactions) {
-          var key =
-            productTransaction.Volume +
-            "-" +
-            productTransaction.Length +
-            "-" +
-            productTransaction.Curl +
-            "-" +
-            productTransaction.Hair +
-            "-" +
-            productTransaction.Type;
+          var key = this.getProductionNameFull(
+            productTransaction.Volume,
+            productTransaction.Length,
+            productTransaction.Curl,
+            productTransaction.Hair,
+            productTransaction.Type
+          );
           if (product["Products"].hasOwnProperty(key)) {
             product["Products"][key] += productTransaction.Quantity;
           } else {
@@ -78,7 +102,7 @@ export class ProductService {
         // Call update transaction
         this.setProductMaterial(product);
         console.log("Product Material updated!");
-        getData.unsubscribe();
+
         return;
       },
       error => console.error(error),
@@ -92,7 +116,7 @@ export class ProductService {
   getStaffTransactionPrice(volume: string, length: string, hair: string) {
     switch (volume) {
       case "3D":
-        return "1200";
+        return "1000";
       case "4D":
         return "1400";
       case "5D":
@@ -109,7 +133,17 @@ export class ProductService {
   }
 
   getLengthOptions(): string[] {
-    return ["9mm", "10mm", "11mm", "12mm", "13mm", "14mm", "15mm", "16mm"];
+    return [
+      "8mm",
+      "9mm",
+      "10mm",
+      "11mm",
+      "12mm",
+      "13mm",
+      "14mm",
+      "15mm",
+      "16mm"
+    ];
   }
 
   getCurlOptions(): string[] {
@@ -121,7 +155,37 @@ export class ProductService {
   }
 
   getProductTypes(): string[] {
-    return ["200 Fan", "500 Fan", "5 dây", "4 dây", "Lùa", "Lùa Mixed"];
+    return ["500Fan", "5Lines", "Lùa", "Lùa Mixed"];
+  }
+
+  getNumberProductLinesConsume(productType: string) {
+    switch (productType) {
+      case "500Fan":
+        return 17;
+      case "5Lines":
+        return 5;
+      case "Lùa":
+        return 0;
+      case "Lùa Mixed":
+        return 0;
+      default:
+        console.log("Invalid productType for " + productType);
+        return 0;
+    }
+  }
+
+  getProductionNameFull(
+    volume: string,
+    length: string,
+    curl: string,
+    hair: string,
+    type: string
+  ) {
+    return volume + "-" + length + "-" + curl + "-" + hair + "-" + type;
+  }
+
+  getProductionMaterialName(volume: string, length: string, hair: string) {
+    return volume + "-" + length + "-" + hair;
   }
 }
 
